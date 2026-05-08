@@ -9,13 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+ 
   <style>
     /* ─────────────────── RESET & BASE ─────────────────── */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
     html { scroll-behavior: smooth; }
-
+ 
     body {
       background: radial-gradient(circle at 15% 20%, #060b1a, #020508);
       color: #e2eeff;
@@ -23,14 +23,14 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-
+ 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #020508; }
     ::-webkit-scrollbar-thumb {
       background: linear-gradient(180deg, #a855f7, #00f5ff);
       border-radius: 10px;
     }
-
+ 
     /* ─────────────────── CURSOR FOLLOWER (GLOBAL) ─────────────────── */
     .cursor-orb {
       position: fixed;
@@ -48,7 +48,7 @@
       transition: width 0.25s ease, height 0.25s ease, opacity 0.3s;
       will-change: transform;
     }
-
+ 
     .cursor-dot {
       position: fixed;
       top: 0; left: 0;
@@ -61,7 +61,7 @@
       transform: translate(-50%, -50%);
       will-change: transform;
     }
-
+ 
     body.cursor-hover .cursor-orb {
       width: 56px; height: 56px;
       background: radial-gradient(circle,
@@ -69,16 +69,16 @@
         rgba(0,245,255,0.35) 50%,
         transparent 80%);
     }
-
+ 
     body.cursor-hover .cursor-dot {
       background: #a855f7;
       box-shadow: 0 0 14px #a855f7, 0 0 6px #fff;
     }
-
+ 
     @media (max-width: 760px), (pointer: coarse) {
       .cursor-orb, .cursor-dot { display: none; }
     }
-
+ 
     /* ─────────────────── SCROLL REVEAL ─────────────────── */
     .scroll-reveal {
       opacity: 0;
@@ -95,7 +95,7 @@
     .scroll-reveal[data-delay="3"].revealed { transition-delay: 0.3s; }
     .scroll-reveal[data-delay="4"].revealed { transition-delay: 0.4s; }
     .scroll-reveal[data-delay="5"].revealed { transition-delay: 0.5s; }
-
+ 
     /* ─────────────────── HEADER ─────────────────── */
     .site-header {
       background: rgba(2, 5, 16, 0.9);
@@ -106,7 +106,7 @@
       top: 0;
       z-index: 100;
     }
-
+ 
     .nav-container {
       max-width: 1400px;
       margin: 0 auto;
@@ -116,7 +116,7 @@
       align-items: center;
       gap: 1.2rem;
     }
-
+ 
     .logo { cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 0.9rem; }
     .logo-img { width: 56px; height: 56px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(0,245,255,0.6)); }
     .logo-copy { display: flex; flex-direction: column; }
@@ -136,7 +136,7 @@
       margin-top: 2px;
       text-shadow: 0 0 6px #a855f7;
     }
-
+ 
     .nav-links { display: flex; gap: 1.8rem; flex-wrap: wrap; }
     .nav-links a {
       color: #b0ccee; text-decoration: none;
@@ -154,7 +154,7 @@
     .nav-links a.lab-link:hover, .nav-links a.lab-link.active {
       color: #a855f7; border-bottom-color: #a855f7; text-shadow: 0 0 8px #a855f7;
     }
-
+ 
     /* ─────────────────── HERO ─────────────────── */
     .hero { position: relative; overflow: hidden; text-align: center; padding: 5rem 2rem 4rem; border-bottom: 1px solid rgba(168,85,247,0.15); }
     .hero::after {
@@ -176,7 +176,7 @@
         radial-gradient(ellipse 50% 40% at 80% 100%, rgba(0,245,255,0.09) 0%, transparent 70%);
       pointer-events: none;
     }
-
+ 
     .hero-eyebrow {
       position: relative;
       font-family: 'Orbitron', monospace;
@@ -195,7 +195,7 @@
       margin-bottom: 1.3rem;
     }
     .hero-sub { position: relative; font-size: clamp(0.9rem, 2vw, 1.05rem); color: #7aa8cc; max-width: 580px; margin: 0 auto 2.2rem; line-height: 1.75; }
-
+ 
     .hero-cta {
       position: relative;
       display: inline-flex; align-items: center; gap: 8px;
@@ -209,13 +209,13 @@
       box-shadow: 0 0 25px rgba(168,85,247,0.5), 0 0 50px rgba(0,245,255,0.2);
       transform: scale(1.05); color: #000;
     }
-
+ 
     /* ─────────────────── LAYOUT ─────────────────── */
     .app-container { max-width: 1400px; margin: 2rem auto; padding: 0 2rem; }
     .view { display: none; animation: fadeIn 0.4s ease; }
     .active-view { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-
+ 
     /* ─────────────────── SEARCH BAR ─────────────────── */
     .search-wrapper {
       display: flex; align-items: center; gap: 0.8rem;
@@ -230,17 +230,17 @@
     .search-wrapper i { color: #a855f7; font-size: 1rem; flex-shrink: 0; }
     .search-wrapper input { flex: 1; background: transparent; border: none; padding: 0; color: #e2eeff; font-size: 0.95rem; outline: none; box-shadow: none; }
     .search-wrapper input::placeholder { color: #3d5a80; }
-
+ 
     .no-results { text-align: center; padding: 3rem 1rem; color: #3d5a80; font-family: 'Orbitron', monospace; display: none; }
     .no-results i { font-size: 2.5rem; margin-bottom: 1rem; display: block; color: rgba(168,85,247,0.3); }
-
+ 
     /* ─────────────────── VIDEO GRID ─────────────────── */
     .video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 2rem;
     }
-
+ 
     .video-card {
       background: rgba(4, 9, 20, 0.88);
       border-radius: 1.5rem;
@@ -249,17 +249,17 @@
       transition: transform 0.25s ease, box-shadow 0.3s, border-color 0.3s, opacity 0.85s, translate 0s;
       cursor: pointer;
     }
-
+ 
     .video-card:hover {
       transform: translateY(-9px);
       border-color: rgba(0, 245, 255, 0.7);
       box-shadow: 0 20px 40px -10px rgba(0,245,255,0.2), 0 0 0 1px rgba(168,85,247,0.3);
     }
-
+ 
     .thumbnail { position: relative; background: #000; aspect-ratio: 16/9; overflow: hidden; }
     .thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .video-card:hover .thumbnail img { transform: scale(1.06); }
-
+ 
     .play-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(168,85,247,0.25), rgba(0,245,255,0.15));
@@ -268,16 +268,16 @@
     }
     .video-card:hover .play-overlay { opacity: 1; }
     .play-overlay i { font-size: 3.2rem; color: #00f5ff; text-shadow: 0 0 16px #00f5ff, 0 0 40px rgba(168,85,247,0.6); }
-
+ 
     .card-content { padding: 1rem 1.2rem 1.3rem; }
     .card-title { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.15rem; margin-bottom: 0.4rem; color: #eaf4ff; }
     .card-desc { font-size: 0.84rem; color: #7aa8cc; line-height: 1.5; }
-
+ 
     /* ─────────────────── DETAIL ─────────────────── */
     .video-player-container { background: #000000bb; border-radius: 1.8rem; overflow: hidden; border: 1px solid rgba(168,85,247,0.3); margin-bottom: 2rem; box-shadow: 0 0 40px rgba(0,245,255,0.08); }
     .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
     .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
+ 
     .project-detail-info {
       background: rgba(4, 9, 20, 0.88);
       border-radius: 1.5rem;
@@ -303,7 +303,7 @@
       padding: 0.3rem 0.9rem; border-radius: 40px;
       font-size: 0.78rem; color: #c4b5fd;
     }
-
+ 
     /* ─────────────────── ★ NEURAL FORGE ─────────────────── */
     .neural-forge-header { text-align: center; padding: 1rem 0 2.5rem; }
     .neural-forge-eyebrow {
@@ -324,14 +324,14 @@
     @keyframes neonShift { 0% { background-position: 0% center; } 100% { background-position: 300% center; } }
     .neural-forge-sub { font-family: 'Orbitron', monospace; font-size: 0.72rem; letter-spacing: 3px; color: #5a7a9a; margin-top: 0.6rem; }
     .lab-divider { width: 200px; height: 1px; background: linear-gradient(90deg, transparent, #a855f7, #00f5ff, transparent); margin: 1.4rem auto 0; }
-
+ 
     .lab-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
     }
     @media (max-width: 900px) { .lab-grid { grid-template-columns: 1fr; } }
-
+ 
     .lab-card {
       position: relative;
       background: rgba(4, 8, 18, 0.92);
@@ -354,10 +354,10 @@
       margin-bottom: 0.3rem;
     }
     .lab-card-sub { font-size: 0.76rem; color: #4d7a9a; margin-bottom: 1rem; }
-
+ 
     /* ─────────────────── REALISTIC ROBOT ─────────────────── */
     .robot-stage { display: flex; justify-content: center; align-items: center; padding: 0.5rem 1rem 1rem; min-height: 360px; position: relative; }
-
+ 
     .robot-stage::before {
       content: '';
       position: absolute;
@@ -366,7 +366,7 @@
       background: radial-gradient(ellipse at center bottom, rgba(0,245,255,0.07) 0%, transparent 60%);
       pointer-events: none;
     }
-
+ 
     #steelBot {
       width: 100%;
       max-width: 270px;
@@ -374,18 +374,18 @@
       animation: robotFloat 4s ease-in-out infinite;
     }
     @keyframes robotFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-
+ 
     .robot-tip { text-align: center; font-size: 0.7rem; font-family: 'Orbitron', monospace; color: #2d4a66; letter-spacing: 2px; margin-top: 0.5rem; }
-
+ 
     .reactor-pulse { animation: reactorPulse 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
     @keyframes reactorPulse { 0%,100% { opacity: 0.7; } 50% { opacity: 1; } }
-
+ 
     .antenna-blink { animation: antennaBlink 2s ease-in-out infinite; }
     @keyframes antennaBlink { 0%,80%,100% { opacity: 1; } 90% { opacity: 0.2; } }
-
+ 
     .joint-glow { animation: jointGlow 3s ease-in-out infinite; }
     @keyframes jointGlow { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
-
+ 
     /* ─────────────────── AI MODEL CARD ─────────────────── */
     .ai-power-btn, .ai-classify-btn {
       width: 100%;
@@ -404,7 +404,7 @@
     }
     .ai-power-btn:disabled, .ai-classify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .ai-status { font-size: 0.78rem; color: #4d7a9a; text-align: center; margin: 0.7rem 0; min-height: 1.2em; }
-
+ 
     .ai-upload-area {
       display: none; border: 2px dashed rgba(168,85,247,0.35);
       border-radius: 1.2rem; padding: 1.8rem 1rem;
@@ -416,10 +416,10 @@
     }
     .ai-upload-area i { font-size: 1.8rem; margin-bottom: 0.4rem; display: block; }
     .ai-upload-area p { font-size: 0.78rem; }
-
+ 
     #aiPreview { display: none; width: 100%; border-radius: 1rem; margin: 0.8rem 0; border: 1px solid rgba(168,85,247,0.3); max-height: 180px; object-fit: cover; }
     .ai-classify-btn { display: none; margin-bottom: 1rem; }
-
+ 
     .ai-result-item { margin: 0.7rem 0; animation: fadeIn 0.3s ease both; }
     .ai-result-label { display: flex; align-items: center; gap: 8px; margin-bottom: 0.3rem; }
     .ai-rank { font-family: 'Orbitron', monospace; font-size: 0.65rem; color: #a855f7; min-width: 22px; }
@@ -427,7 +427,7 @@
     .ai-prob { font-family: 'Orbitron', monospace; font-size: 0.74rem; color: #00f5ff; }
     .ai-bar-track { background: rgba(255,255,255,0.04); border-radius: 4px; height: 5px; overflow: hidden; }
     .ai-bar-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #00f5ff); border-radius: 4px; width: 0%; transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
-
+ 
     /* ─────────────────── PARTICLE FIELD ─────────────────── */
     .particle-stage {
       width: 100%; aspect-ratio: 4/3;
@@ -449,7 +449,7 @@
       transition: 0.2s;
     }
     .pf-btn:hover { background: rgba(168,85,247,0.2); border-color: #a855f7; color: #fff; box-shadow: 0 0 12px rgba(168,85,247,0.3); }
-
+ 
     /* ─────────────────── CYBER ORACLE ─────────────────── */
     .oracle-input {
       width: 100%; min-height: 110px; padding: 0.9rem;
@@ -462,7 +462,7 @@
       margin-bottom: 0.8rem;
     }
     .oracle-input:focus { border-color: #00f5ff; box-shadow: 0 0 12px rgba(0,245,255,0.15); }
-
+ 
     .oracle-btn {
       width: 100%;
       background: linear-gradient(95deg, #a855f7, #0ea5e9);
@@ -472,7 +472,7 @@
       letter-spacing: 1px;
     }
     .oracle-btn:hover { background: linear-gradient(95deg, #00f5ff, #a855f7); box-shadow: 0 0 18px rgba(168,85,247,0.35); color: #000; }
-
+ 
     .oracle-result {
       display: none; margin-top: 1rem; padding: 1rem;
       background: rgba(168,85,247,0.05);
@@ -496,7 +496,7 @@
       transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .oracle-meter-labels { display: flex; justify-content: space-between; font-size: 0.6rem; color: #3d5a80; margin-top: 0.3rem; letter-spacing: 1px; }
-
+ 
     /* ─────────────────── ABOUT / CONTACT ─────────────────── */
     .about-card, .contact-card {
       background: rgba(4, 9, 20, 0.88); backdrop-filter: blur(8px);
@@ -506,7 +506,7 @@
     }
     .skills { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
     .skill { background: rgba(168,85,247,0.08); padding: 0.5rem 1.1rem; border-radius: 2rem; font-family: 'Orbitron', monospace; font-size: 0.78rem; border: 1px solid rgba(168,85,247,0.35); color: #c4b5fd; }
-
+ 
     .contact-info {
       background: rgba(168,85,247,0.06);
       border-radius: 1.2rem; padding: 1.2rem; margin-bottom: 2rem;
@@ -516,10 +516,10 @@
     .contact-info i { color: #a855f7; width: 28px; font-size: 1.1rem; }
     .contact-info a { color: #8fb4d4; text-decoration: none; transition: 0.2s; border-bottom: 1px dashed rgba(168,85,247,0.4); }
     .contact-info a:hover { color: #00f5ff; border-bottom-color: #00f5ff; }
-
+ 
     .form-group { margin-bottom: 1.2rem; }
     .form-group label { display: block; font-size: 0.78rem; color: #5a7a9a; margin-bottom: 0.4rem; }
-
+ 
     input, textarea {
       width: 100%; background: rgba(6, 11, 26, 0.9);
       border: 1px solid rgba(168,85,247,0.2);
@@ -527,7 +527,7 @@
       color: #e2eeff; font-family: 'Inter', sans-serif; transition: 0.2s;
     }
     input:focus, textarea:focus { outline: none; border-color: #a855f7; box-shadow: 0 0 10px rgba(168,85,247,0.25); }
-
+ 
     button {
       background: linear-gradient(95deg, #7c3aed, #0ea5e9);
       border: none; padding: 0.72rem 1.8rem; border-radius: 2rem;
@@ -535,7 +535,7 @@
       color: white; cursor: pointer; transition: 0.22s;
     }
     button:hover { background: linear-gradient(95deg, #a855f7, #00f5ff); box-shadow: 0 0 16px rgba(168,85,247,0.4); transform: scale(1.02); color: #000; }
-
+ 
     .back-home {
       display: inline-flex; align-items: center; gap: 8px;
       margin-bottom: 1.5rem; background: none; color: #a855f7;
@@ -544,7 +544,7 @@
       font-family: 'Orbitron', monospace; font-size: 0.78rem;
     }
     .back-home:hover { background: none; color: #00f5ff; border-color: #00f5ff; box-shadow: 0 0 12px rgba(0,245,255,0.2); transform: none; }
-
+ 
     /* ─────────────────── WHATSAPP ─────────────────── */
     .wa-banner {
       position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
@@ -561,10 +561,10 @@
     .wa-banner i { font-size: 1.3rem; }
     .whatsapp-btn { background: #25D366; border: none; margin-top: 0.5rem; }
     .whatsapp-btn:hover { background: #128C7E; box-shadow: 0 0 14px #25D366; color: white; }
-
+ 
     /* ─────────────────── FOOTER ─────────────────── */
     footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(168,85,247,0.15); margin-top: 3rem; color: #3d5a80; font-size: 0.88rem; }
-
+ 
     /* ─────────────────── RESPONSIVE ─────────────────── */
     @media (max-width: 760px) {
       .nav-container { flex-direction: column; align-items: stretch; }
@@ -581,19 +581,19 @@
     }
   </style>
 </head>
-
+ 
 <body>
-
+ 
   <!-- GLOBAL CURSOR FOLLOWER -->
   <div class="cursor-orb" id="cursorOrb"></div>
   <div class="cursor-dot" id="cursorDot"></div>
-
+ 
   <!-- WHATSAPP BANNER -->
   <div class="wa-banner" id="waBanner">
     <i class="fab fa-whatsapp"></i>
     Opening WhatsApp — click Send in the app!
   </div>
-
+ 
   <!-- HEADER -->
   <header class="site-header">
     <div class="nav-container">
@@ -612,7 +612,7 @@
       </div>
     </div>
   </header>
-
+ 
   <!-- HERO -->
   <section class="hero" id="heroSection">
     <p class="hero-eyebrow scroll-reveal">⚡ Built from scratch. Wired to impress.</p>
@@ -625,9 +625,9 @@
       <i class="fas fa-robot"></i> Explore Projects
     </a>
   </section>
-
+ 
   <main class="app-container">
-
+ 
     <!-- HOME -->
     <div id="homeView" class="view active-view">
       <div class="scroll-reveal" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem;">
@@ -636,24 +636,24 @@
           <span id="projectCount" style="font-size:0.65rem;background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.25);padding:0.2rem 0.7rem;border-radius:2rem;color:#00f5ff;"></span>
         </h2>
       </div>
-
+ 
       <div class="search-wrapper scroll-reveal" data-delay="1">
         <i class="fas fa-search"></i>
         <input type="text" id="searchInput" placeholder="Search projects by name, keyword, or component…" autocomplete="off">
       </div>
-
+ 
       <div id="videoGridContainer" class="video-grid"></div>
       <div class="no-results" id="noResults">
         <i class="fas fa-satellite-dish"></i> No projects found for "<span id="noResultsQuery"></span>"
       </div>
     </div>
-
+ 
     <!-- DETAIL -->
     <div id="detailView" class="view">
       <button id="backHomeBtn" class="back-home"><i class="fas fa-arrow-left"></i> Back to Gallery</button>
       <div id="projectDetailContent"></div>
     </div>
-
+ 
     <!-- ── NEURAL FORGE ── -->
     <div id="labView" class="view">
       <div class="neural-forge-header scroll-reveal">
@@ -662,18 +662,17 @@
         <p class="neural-forge-sub">WHERE STEEL MEETS SYNTHETIC INTELLIGENCE</p>
         <div class="lab-divider"></div>
       </div>
-
+ 
       <div class="lab-grid">
-
+ 
         <!-- ── REALISTIC HUMANOID ROBOT ── -->
         <div class="lab-card scroll-reveal" data-delay="1">
           <div class="lab-card-title"><i class="fas fa-robot" style="color:#00f5ff;margin-right:8px;"></i>Sentinel A-7 Humanoid Unit</div>
           <div class="lab-card-sub">Bipedal android · cursor-reactive head &amp; ocular tracking</div>
-
+ 
           <div class="robot-stage">
             <svg id="steelBot" viewBox="0 0 220 470" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <!-- Industrial steel gradients -->
                 <linearGradient id="rsg" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%"  stop-color="#6d7c8d"/>
                   <stop offset="45%" stop-color="#3a4555"/>
@@ -714,148 +713,105 @@
                   <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/>
                 </filter>
               </defs>
-
-              <!-- Ground shadow -->
+ 
               <ellipse cx="110" cy="462" rx="55" ry="6" fill="#00f5ff" opacity="0.12"/>
               <ellipse cx="110" cy="462" rx="38" ry="3.5" fill="#a855f7" opacity="0.08"/>
-
-              <!-- ─── FEET ─── -->
+ 
               <path d="M 60 442 L 102 442 L 105 458 L 56 460 Z" fill="url(#rdsg)" filter="url(#shadow)"/>
               <path d="M 62 444 L 100 444 L 100 449 L 62 449 Z" fill="url(#rhsg)" opacity="0.3"/>
               <path d="M 160 442 L 118 442 L 115 458 L 164 460 Z" fill="url(#rdsg)" filter="url(#shadow)"/>
               <path d="M 158 444 L 120 444 L 120 449 L 158 449 Z" fill="url(#rhsg)" opacity="0.3"/>
-
-              <!-- ─── ANKLES ─── -->
+ 
               <rect x="68" y="430" width="32" height="16" rx="3" fill="url(#rsg)"/>
               <rect x="120" y="430" width="32" height="16" rx="3" fill="url(#rsg2)"/>
-
-              <!-- ─── CALVES (tapered) ─── -->
+ 
               <path d="M 70 360 L 100 358 L 102 432 L 66 432 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-              <!-- shin highlight strip -->
               <path d="M 76 365 L 84 365 L 86 425 L 72 425 Z" fill="url(#rhsg)" opacity="0.25"/>
-              <!-- shin panel line -->
               <line x1="89" y1="370" x2="91" y2="425" stroke="#0a0f16" stroke-width="1" opacity="0.5"/>
-              <!-- calf hydraulic detail -->
               <rect x="92" y="380" width="4" height="40" rx="1" fill="url(#rdsg)"/>
               <circle cx="94" cy="385" r="2" fill="#00f5ff" opacity="0.5"/>
               <circle cx="94" cy="415" r="2" fill="#00f5ff" opacity="0.5"/>
-
+ 
               <path d="M 150 360 L 120 358 L 118 432 L 154 432 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
               <path d="M 144 365 L 136 365 L 134 425 L 148 425 Z" fill="url(#rhsg)" opacity="0.25"/>
               <line x1="131" y1="370" x2="129" y2="425" stroke="#0a0f16" stroke-width="1" opacity="0.5"/>
               <rect x="124" y="380" width="4" height="40" rx="1" fill="url(#rdsg)"/>
               <circle cx="126" cy="385" r="2" fill="#00f5ff" opacity="0.5"/>
               <circle cx="126" cy="415" r="2" fill="#00f5ff" opacity="0.5"/>
-
-              <!-- ─── KNEE ACTUATORS ─── -->
+ 
               <circle cx="84" cy="358" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
               <circle cx="84" cy="358" r="7"  fill="url(#rdsg)"/>
               <circle cx="84" cy="358" r="3"  fill="#00f5ff" class="joint-glow"/>
               <circle cx="136" cy="358" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
               <circle cx="136" cy="358" r="7"  fill="url(#rdsg)"/>
               <circle cx="136" cy="358" r="3"  fill="#00f5ff" class="joint-glow"/>
-
-              <!-- ─── THIGHS (muscular taper) ─── -->
+ 
               <path d="M 76 268 L 102 268 L 100 358 L 70 358 Z" fill="url(#rsg)" filter="url(#shadow)"/>
               <ellipse cx="86" cy="305" rx="11" ry="28" fill="url(#rhsg)" opacity="0.2"/>
               <line x1="92" y1="278" x2="93" y2="354" stroke="#0a0f16" stroke-width="1" opacity="0.4"/>
-
+ 
               <path d="M 144 268 L 118 268 L 120 358 L 150 358 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
               <ellipse cx="134" cy="305" rx="11" ry="28" fill="url(#rhsg)" opacity="0.2"/>
               <line x1="128" y1="278" x2="127" y2="354" stroke="#0a0f16" stroke-width="1" opacity="0.4"/>
-
-              <!-- ─── HIP JOINTS ─── -->
+ 
               <circle cx="86" cy="265" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
               <circle cx="86" cy="265" r="6"  fill="url(#rdsg)"/>
               <circle cx="134" cy="265" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
               <circle cx="134" cy="265" r="6"  fill="url(#rdsg)"/>
-
-              <!-- ─── PELVIS ─── -->
+ 
               <path d="M 70 240 L 150 240 L 144 268 L 76 268 Z" fill="url(#rsg)" filter="url(#shadow)"/>
               <rect x="98" y="245" width="24" height="20" rx="2" fill="url(#rdsg)" opacity="0.7"/>
               <line x1="110" y1="246" x2="110" y2="263" stroke="#00f5ff" stroke-width="0.6" opacity="0.4"/>
-
-              <!-- ─── TORSO (V-shape) ─── -->
+ 
               <path d="M 56 108 L 164 108 L 158 200 L 152 240 L 68 240 L 62 200 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-
-              <!-- chest paneling (left/right asymmetric for realism) -->
               <path d="M 70 116 L 108 116 L 108 175 L 74 178 Z" fill="url(#rsg2)" opacity="0.45"/>
               <path d="M 150 116 L 112 116 L 112 175 L 146 178 Z" fill="url(#rsg)" opacity="0.45"/>
-              <!-- center seam -->
               <line x1="110" y1="116" x2="110" y2="240" stroke="#080d14" stroke-width="2"/>
-              <!-- shoulder collar -->
               <path d="M 56 108 L 86 108 L 84 118 L 60 118 Z" fill="url(#rdsg)"/>
               <path d="M 164 108 L 134 108 L 136 118 L 160 118 Z" fill="url(#rdsg)"/>
-
-              <!-- chest indicator (small reactor light) -->
               <circle cx="110" cy="138" r="6.5" fill="url(#coreLight)" filter="url(#sglow)" class="reactor-pulse"/>
               <circle cx="110" cy="138" r="3" fill="#fff"/>
-
-              <!-- chest panel lines -->
               <line x1="68" y1="160" x2="152" y2="160" stroke="#080d14" stroke-width="1" opacity="0.5"/>
               <line x1="72" y1="195" x2="148" y2="195" stroke="#080d14" stroke-width="1" opacity="0.4"/>
-
-              <!-- abdominal segments -->
               <rect x="86" y="178" width="48" height="11" rx="2" fill="url(#rdsg)" opacity="0.65"/>
               <rect x="86" y="192" width="48" height="11" rx="2" fill="url(#rdsg)" opacity="0.65"/>
               <rect x="86" y="206" width="48" height="11" rx="2" fill="url(#rdsg)" opacity="0.55"/>
-
-              <!-- chest cyan piping (subtle) -->
               <line x1="78" y1="142" x2="100" y2="142" stroke="#00f5ff" stroke-width="0.6" opacity="0.5"/>
               <line x1="120" y1="142" x2="142" y2="142" stroke="#00f5ff" stroke-width="0.6" opacity="0.5"/>
-
-              <!-- ─── SHOULDER BALL JOINTS ─── -->
+ 
               <circle cx="44"  cy="120" r="20" fill="url(#rhsg)" stroke="#0a0f16" stroke-width="1.5" filter="url(#shadow)"/>
               <circle cx="44"  cy="120" r="13" fill="url(#rsg)"/>
               <circle cx="44"  cy="120" r="6"  fill="url(#rdsg)"/>
               <circle cx="44"  cy="120" r="2"  fill="#00f5ff" class="joint-glow"/>
-
               <circle cx="176" cy="120" r="20" fill="url(#rhsg)" stroke="#0a0f16" stroke-width="1.5" filter="url(#shadow)"/>
               <circle cx="176" cy="120" r="13" fill="url(#rsg2)"/>
               <circle cx="176" cy="120" r="6"  fill="url(#rdsg)"/>
               <circle cx="176" cy="120" r="2"  fill="#00f5ff" class="joint-glow"/>
-
-              <!-- ─── ARMS ─── -->
-              <!-- L upper arm (bicep taper) -->
+ 
               <path d="M 30 135 L 58 132 L 56 215 L 32 215 Z" fill="url(#rsg)" filter="url(#shadow)"/>
               <ellipse cx="44" cy="170" rx="11" ry="22" fill="url(#rhsg)" opacity="0.22"/>
               <line x1="48" y1="145" x2="49" y2="210" stroke="#0a0f16" stroke-width="0.8" opacity="0.4"/>
-
-              <!-- L elbow -->
               <circle cx="42" cy="218" r="11" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1"/>
               <circle cx="42" cy="218" r="5"  fill="url(#rdsg)"/>
               <circle cx="42" cy="218" r="2"  fill="#00f5ff" class="joint-glow"/>
-
-              <!-- L forearm -->
               <path d="M 30 224 L 54 224 L 52 290 L 30 290 Z" fill="url(#rsg)" filter="url(#shadow)"/>
               <line x1="42" y1="230" x2="42" y2="285" stroke="#0a0f16" stroke-width="0.7" opacity="0.4"/>
-
-              <!-- L wrist + hand -->
               <rect x="30" y="290" width="22" height="8" rx="2" fill="url(#rdsg)"/>
               <path d="M 28 298 L 54 298 L 53 318 L 29 318 Z" fill="url(#rsg)"/>
-              <!-- fingers -->
               <rect x="30" y="316" width="3" height="9" rx="1" fill="url(#rsg)"/>
               <rect x="35" y="318" width="3" height="11" rx="1" fill="url(#rsg)"/>
               <rect x="40" y="318" width="3" height="11" rx="1" fill="url(#rsg)"/>
               <rect x="45" y="316" width="3" height="9" rx="1" fill="url(#rsg)"/>
-              <!-- thumb -->
               <ellipse cx="26" cy="308" rx="3" ry="5" fill="url(#rdsg)"/>
-
-              <!-- R upper arm -->
+ 
               <path d="M 190 135 L 162 132 L 164 215 L 188 215 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
               <ellipse cx="176" cy="170" rx="11" ry="22" fill="url(#rhsg)" opacity="0.22"/>
               <line x1="172" y1="145" x2="171" y2="210" stroke="#0a0f16" stroke-width="0.8" opacity="0.4"/>
-
-              <!-- R elbow -->
               <circle cx="178" cy="218" r="11" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1"/>
               <circle cx="178" cy="218" r="5"  fill="url(#rdsg)"/>
               <circle cx="178" cy="218" r="2"  fill="#00f5ff" class="joint-glow"/>
-
-              <!-- R forearm -->
               <path d="M 190 224 L 166 224 L 168 290 L 190 290 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
               <line x1="178" y1="230" x2="178" y2="285" stroke="#0a0f16" stroke-width="0.7" opacity="0.4"/>
-
-              <!-- R wrist + hand -->
               <rect x="168" y="290" width="22" height="8" rx="2" fill="url(#rdsg)"/>
               <path d="M 192 298 L 166 298 L 167 318 L 191 318 Z" fill="url(#rsg2)"/>
               <rect x="187" y="316" width="3" height="9" rx="1" fill="url(#rsg2)"/>
@@ -863,72 +819,44 @@
               <rect x="177" y="318" width="3" height="11" rx="1" fill="url(#rsg2)"/>
               <rect x="172" y="316" width="3" height="9" rx="1" fill="url(#rsg2)"/>
               <ellipse cx="194" cy="308" rx="3" ry="5" fill="url(#rdsg)"/>
-
-              <!-- ─── NECK (mechanical with cables) ─── -->
+ 
               <rect x="98" y="86" width="24" height="22" rx="3" fill="url(#rdsg)"/>
               <line x1="103" y1="90" x2="103" y2="106" stroke="#0a0f16" stroke-width="1.2"/>
               <line x1="110" y1="90" x2="110" y2="106" stroke="#0a0f16" stroke-width="1.2"/>
               <line x1="117" y1="90" x2="117" y2="106" stroke="#0a0f16" stroke-width="1.2"/>
-              <!-- neck collar -->
               <path d="M 92 105 L 128 105 L 126 112 L 94 112 Z" fill="url(#rsg)"/>
-
-              <!-- ─── HEAD GROUP (rotates on cursor; pivot=110,95) ─── -->
+ 
               <g id="robotHead" transform="rotate(0, 110, 95)">
-                <!-- Skull main: tapered helmet -->
                 <path d="M 82 24 Q 84 14 96 12 L 124 12 Q 136 14 138 24 L 140 70 Q 138 84 130 86 L 90 86 Q 82 84 80 70 Z"
                       fill="url(#rsg)" filter="url(#shadow)"/>
-                <!-- Forehead highlight -->
                 <path d="M 88 18 Q 92 14 96 14 L 124 14 Q 128 14 132 18 L 132 26 L 88 26 Z" fill="url(#rhsg)" opacity="0.5"/>
-
-                <!-- Top antenna housing -->
                 <rect x="106" y="6" width="8" height="8" rx="1" fill="url(#rdsg)"/>
                 <circle cx="110" cy="5" r="2.5" fill="#00f5ff" filter="url(#sglow)" class="antenna-blink"/>
-
-                <!-- Forehead panel/sensor -->
                 <rect x="94" y="28" width="32" height="6" rx="2" fill="url(#rdsg)" opacity="0.7"/>
                 <circle cx="100" cy="31" r="1.2" fill="#a855f7"/>
                 <circle cx="110" cy="31" r="1.2" fill="#00f5ff"/>
                 <circle cx="120" cy="31" r="1.2" fill="#a855f7"/>
-
-                <!-- Side ear plates / receivers -->
                 <rect x="78" y="40" width="6" height="28" rx="1.5" fill="url(#rdsg)"/>
                 <line x1="80" y1="44" x2="80" y2="64" stroke="#00f5ff" stroke-width="0.6" opacity="0.6"/>
                 <rect x="136" y="40" width="6" height="28" rx="1.5" fill="url(#rdsg)"/>
                 <line x1="140" y1="44" x2="140" y2="64" stroke="#00f5ff" stroke-width="0.6" opacity="0.6"/>
-
-                <!-- VISOR strip (thin & menacing) -->
                 <path d="M 86 40 L 134 40 Q 138 40 138 44 L 138 56 Q 138 60 134 60 L 86 60 Q 82 60 82 56 L 82 44 Q 82 40 86 40 Z"
                       fill="url(#visor)" stroke="#00f5ff" stroke-width="0.8" filter="url(#glow)"/>
-
-                <!-- Visor inner shine -->
                 <rect x="86" y="42" width="20" height="4" rx="2" fill="#fff" opacity="0.18"/>
-
-                <!-- Eyes (small ocular sensors) -->
                 <circle cx="96"  cy="50" r="4" fill="#001833"/>
                 <circle cx="124" cy="50" r="4" fill="#001833"/>
                 <circle cx="96"  cy="50" r="3" fill="#00f5ff" opacity="0.85" filter="url(#glow)"/>
                 <circle cx="124" cy="50" r="3" fill="#00f5ff" opacity="0.85" filter="url(#glow)"/>
-                <!-- Pupil dots (animated by JS) -->
                 <circle id="pupilL" cx="96"  cy="50" r="1.4" fill="#001833"/>
                 <circle id="pupilR" cx="124" cy="50" r="1.4" fill="#001833"/>
-
-                <!-- Cheek panel divider lines -->
                 <line x1="82" y1="65" x2="138" y2="65" stroke="#080d14" stroke-width="0.8" opacity="0.5"/>
-
-                <!-- Lower face / jaw -->
                 <path d="M 92 66 L 128 66 L 124 82 L 96 82 Z" fill="url(#rdsg)" opacity="0.5"/>
-
-                <!-- Mouth grill (refined, smaller) -->
                 <rect x="100" y="72" width="20" height="5" rx="1" fill="url(#rdsg)"/>
                 <line x1="103" y1="73" x2="103" y2="76" stroke="#3a4555" stroke-width="0.5"/>
                 <line x1="107" y1="73" x2="107" y2="76" stroke="#3a4555" stroke-width="0.5"/>
                 <line x1="111" y1="73" x2="111" y2="76" stroke="#3a4555" stroke-width="0.5"/>
                 <line x1="115" y1="73" x2="115" y2="76" stroke="#3a4555" stroke-width="0.5"/>
-
-                <!-- Chin bolt -->
                 <circle cx="110" cy="83" r="1.5" fill="url(#rhsg)"/>
-
-                <!-- Side bolts -->
                 <circle cx="86" cy="34" r="1.5" fill="url(#rhsg)"/>
                 <circle cx="134" cy="34" r="1.5" fill="url(#rhsg)"/>
                 <circle cx="86" cy="78" r="1.5" fill="url(#rhsg)"/>
@@ -938,7 +866,7 @@
           </div>
           <p class="robot-tip">⬡ A-7 IS TRACKING YOUR CURSOR ⬡</p>
         </div>
-
+ 
         <!-- ── AI MODEL CARD ── -->
         <div class="lab-card scroll-reveal" data-delay="2">
           <div class="lab-card-title"><i class="fas fa-brain" style="color:#a855f7;margin-right:8px;"></i>Synthetic Vision Core</div>
@@ -958,8 +886,8 @@
           <button class="ai-classify-btn" id="aiClassifyBtn"><i class="fas fa-microscope"></i> &nbsp;Analyze with AI</button>
           <div id="aiResults"></div>
         </div>
-
-        <!-- ── PARTICLE FIELD (NEW) ── -->
+ 
+        <!-- ── PARTICLE FIELD ── -->
         <div class="lab-card scroll-reveal" data-delay="3">
           <div class="lab-card-title"><i class="fas fa-atom" style="color:#00f5ff;margin-right:8px;"></i>Quantum Particle Field</div>
           <div class="lab-card-sub">Real-time particle physics · cursor attracts the swarm</div>
@@ -976,8 +904,8 @@
             <button class="pf-btn" id="pfReset"><i class="fas fa-redo"></i> Reset</button>
           </div>
         </div>
-
-        <!-- ── CYBER ORACLE (NEW) ── -->
+ 
+        <!-- ── CYBER ORACLE ── -->
         <div class="lab-card scroll-reveal" data-delay="4">
           <div class="lab-card-title"><i class="fas fa-eye" style="color:#a855f7;margin-right:8px;"></i>Cyber Oracle</div>
           <div class="lab-card-sub">Sentiment &amp; emotion analysis · feed it text, get its read</div>
@@ -992,10 +920,10 @@
             <div class="oracle-meter-labels"><span>NEGATIVE</span><span>NEUTRAL</span><span>POSITIVE</span></div>
           </div>
         </div>
-
+ 
       </div><!-- /lab-grid -->
     </div><!-- /labView -->
-
+ 
     <!-- ABOUT -->
     <div id="aboutView" class="view">
       <div class="about-card scroll-reveal">
@@ -1019,7 +947,7 @@
         </p>
       </div>
     </div>
-
+ 
     <!-- CONTACT -->
     <div id="contactView" class="view">
       <div class="contact-card scroll-reveal">
@@ -1048,31 +976,52 @@
         </p>
       </div>
     </div>
-
+ 
   </main>
-
+ 
   <footer><p>⚡ SteelCircuits — pure robotics showcase | no sales, just sparks &amp; code ⚡</p></footer>
-
+ 
   <script>
     /* ══════════════════ DATA ══════════════════ */
     const projects = [
-      { id: 1, title: "Robo Race Bot", shortDesc: "High-speed 4WD racing robot with wireless control",
+      {
+        id: 1,
+        title: "Robo Race Bot",
+        shortDesc: "High-speed 4WD racing robot with wireless control",
         detailedExplanation: "This is a high-speed robotic vehicle designed for competitive racing, featuring a powerful 4-wheel drive system for strong torque and fast acceleration. It is powered by a LiPo battery to ensure consistent high performance during races. The bot uses motor drivers for smooth and precise control of all motors. A wireless transmitter-receiver setup allows real-time control with responsive steering and throttle. The lightweight yet durable chassis ensures stability and speed on racing tracks.",
         componentsUsed: "DC geared motors (4x), Wheels (4x), Motor drivers (BTS7960 – 2x), RC transmitter & receiver, LiPo battery (3S 11.1V), Chassis/frame, Buck converter, Power switch, Connecting wires, Connectors (XT60), Arduino Uno",
         workingExplanation: "The robo race bot works on a wireless control system using a transmitter and receiver. When the user gives input through the transmitter (throttle or steering), signals are sent to the receiver mounted on the bot. These signals are then forwarded to the motor drivers, which control the speed and direction of the DC motors. The LiPo battery supplies high current to drive all four motors efficiently. By varying the PWM signals, the bot achieves smooth acceleration, braking, and turning, allowing precise control during races.",
-        embedUrl: "https://www.youtube.com/embed/bl2gWOpC4_4" },
-      { id: 2, title: "Eye Controlled Car", shortDesc: "Hands-free robotic car using AI eye tracking",
+        embedUrl: "https://www.youtube.com/embed/bl2gWOpC4_4"
+      },
+      {
+        id: 2,
+        title: "Eye Controlled Car",
+        shortDesc: "Hands-free robotic car using AI eye tracking",
         detailedExplanation: "This project is a hands-free robotic car controlled using eye movements through real-time computer vision. It uses OpenCV and MediaPipe to detect eye direction and convert it into control commands. An ESP32 receives these commands wirelessly and controls the motors accordingly. The system is designed for low latency, ensuring quick response to eye movements. It demonstrates the integration of AI and embedded systems for assistive technology.",
         componentsUsed: "DC motors, ESP32, Motor driver L298N, Wheels, Chassis, Battery (LiPo or 18650 pack), USB camera / laptop camera, Jumper wires, Power module, OpenCV, MediaPipe",
         workingExplanation: "The system starts with a camera capturing the user's face in real time. Using OpenCV and MediaPipe, the eye position and gaze direction are detected. Based on this, commands like left, right, or forward are generated by the program. These commands are sent wirelessly to the ESP32, which controls the motor driver and moves the car accordingly. The entire system works in real time, enabling hands-free navigation.",
-        embedUrl: "https://www.youtube.com/embed/LPo3su2wmzA" },
-      { id: 3, title: "RFID Attendance System", shortDesc: "Automated attendance using RFID technology",
+        embedUrl: "https://www.youtube.com/embed/LPo3su2wmzA"
+      },
+      {
+        id: 3,
+        title: "RFID Attendance System",
+        shortDesc: "Automated attendance using RFID technology",
         detailedExplanation: "This is an automated attendance system that uses RFID technology to identify users through unique cards. When a card is scanned, the system verifies its ID using Arduino Uno. If the card is valid, attendance is marked and a green LED glows as confirmation. The system is fast, reliable, and reduces manual errors. Ideal for schools, offices, and basic automation projects.",
         componentsUsed: "RFID module (MFRC522), Arduino Uno, Green LED, Resistor (220Ω), Breadboard, Jumper wires, USB cable",
         workingExplanation: "When an RFID card is brought near the reader, the RFID module scans the card's unique ID using radio frequency signals. This data is sent to the Arduino Uno, which checks whether the ID matches stored authorized IDs. If valid, the system marks attendance and turns on a green LED as confirmation. If unrecognized, no action is triggered. This process happens instantly, making attendance marking fast and accurate.",
-        embedUrl: "https://www.youtube.com/embed/uIu3_PnATQU" }
+        embedUrl: "https://www.youtube.com/embed/uIu3_PnATQU"
+      },
+      {
+        id: 4,
+        title: "NEXUS Delivery Bot",
+        shortDesc: "Smart ESP32-based autonomous delivery robot with obstacle detection, anti-theft protection, and web-controlled navigation",
+        detailedExplanation: "This is an ESP32-based smart delivery robot designed for indoor autonomous transportation and safety applications. It uses a web-based control system that allows users to send movement commands wirelessly through a custom interface. The robot features LiDAR obstacle detection for collision prevention and an ultrasonic sensor-based anti-theft system that activates a buzzer if the robot is lifted. Its powerful geared motors and large rubber wheels provide stable movement and smooth navigation.",
+        componentsUsed: "ESP32 Development Board, BTS7960 Motor Driver, 300 RPM DC Geared Motors, 125 mm Rubber Wheels, LiPo Battery, XT60 Connector, Buck Converter, VL53L0X LiDAR Sensor, Ultrasonic Sensor, Buzzer Module, Chassis/Frame, Connecting Wires",
+        workingExplanation: "The Nexus delivery bot works using an ESP32 microcontroller that creates its own WiFi network and hosts a control webpage. Users can queue commands like forward, backward, left, and right with adjustable distances. The BTS7960 motor driver controls the motors for smooth movement, while the LiDAR sensor continuously checks for obstacles and stops the robot automatically when needed. An ultrasonic sensor underneath the robot acts as an anti-theft system by activating the buzzer whenever the robot is lifted from the ground.",
+        embedUrl: "https://www.youtube.com/embed/Oy_LwHAHLSg"
+      }
     ];
-
+ 
     /* ══════════════════ HELPERS ══════════════════ */
     const $ = id => document.getElementById(id);
     const getVideoId = u => (u.match(/\/embed\/([^?]+)/) || [])[1] || null;
@@ -1081,19 +1030,19 @@
       return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : 'https://via.placeholder.com/320x180/040912/00f5ff?text=SteelCircuits';
     };
     const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
+ 
     /* ══════════════════ CURSOR FOLLOWER ══════════════════ */
     (function setupCursor() {
       if (matchMedia('(pointer: coarse)').matches) return;
       const orb = $('cursorOrb'), dot = $('cursorDot');
       let mx = innerWidth/2, my = innerHeight/2;
       let ox = mx, oy = my;
-
+ 
       addEventListener('mousemove', e => {
         mx = e.clientX; my = e.clientY;
         dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
       });
-
+ 
       const HOVER_SEL = 'a, button, .video-card, .lab-card, input, textarea, .pf-btn, .ai-upload-area';
       document.addEventListener('mouseover', e => {
         if (e.target.closest(HOVER_SEL)) document.body.classList.add('cursor-hover');
@@ -1101,7 +1050,7 @@
       document.addEventListener('mouseout', e => {
         if (e.target.closest(HOVER_SEL)) document.body.classList.remove('cursor-hover');
       });
-
+ 
       function loop() {
         ox += (mx - ox) * 0.18;
         oy += (my - oy) * 0.18;
@@ -1110,23 +1059,23 @@
       }
       loop();
     })();
-
+ 
     /* ══════════════════ SCROLL REVEAL ══════════════════ */
     const scrollObserver = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
+ 
     function observeReveals() {
       document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => scrollObserver.observe(el));
     }
-
+ 
     /* ══════════════════ WA BANNER ══════════════════ */
     function showWaBanner() {
       const b = $('waBanner');
       b.classList.add('show');
       setTimeout(() => b.classList.remove('show'), 4200);
     }
-
+ 
     /* ══════════════════ HOME GRID ══════════════════ */
     function renderHomeGrid(filter = '') {
       const grid = $('videoGridContainer'), noRes = $('noResults'), badge = $('projectCount');
@@ -1152,7 +1101,7 @@
       grid.querySelectorAll('.video-card').forEach(c => c.addEventListener('click', () => showDetail(parseInt(c.dataset.id))));
       observeReveals();
     }
-
+ 
     /* ══════════════════ DETAIL ══════════════════ */
     function showDetail(id) {
       const p = projects.find(x => x.id === id);
@@ -1175,39 +1124,38 @@
       navigateTo('detail');
       observeReveals();
     }
-
+ 
     /* ══════════════════ NAVIGATION ══════════════════ */
     const VIEWS = { home:'homeView', detail:'detailView', lab:'labView', about:'aboutView', contact:'contactView' };
-
+ 
     function navigateTo(name) {
       Object.values(VIEWS).forEach(id => $(id)?.classList.remove('active-view'));
       $(VIEWS[name])?.classList.add('active-view');
-
+ 
       document.querySelectorAll('.nav-links a').forEach(a => {
         const nav = a.getAttribute('data-nav');
         a.classList.toggle('active', nav === name || (name === 'detail' && nav === 'home'));
       });
-
+ 
       const hero = $('heroSection');
       if (hero) hero.style.display = name === 'home' ? '' : 'none';
-
-      // re-trigger reveal animations on view change
+ 
       document.querySelectorAll(`#${VIEWS[name]} .scroll-reveal`).forEach(el => el.classList.remove('revealed'));
-
+ 
       if (name === 'home') renderHomeGrid($('searchInput')?.value || '');
       if (name === 'lab')  { initRobot(); initParticleField(); }
-
+ 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(observeReveals, 50);
     }
-
+ 
     /* ══════════════════ SEARCH ══════════════════ */
     function setupSearch() {
       const input = $('searchInput'); if (!input) return;
       let t;
       input.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => renderHomeGrid(input.value), 220); });
     }
-
+ 
     /* ══════════════════ CONTACT ══════════════════ */
     function setupContact() {
       $('contactForm')?.addEventListener('submit', e => {
@@ -1221,7 +1169,7 @@
         e.target.reset();
       });
     }
-
+ 
     /* ══════════════════ ROBOT — CURSOR TRACKING ══════════════════ */
     let robotReady = false;
     function initRobot() {
@@ -1232,7 +1180,7 @@
       const EL = { x: 96, y: 50 }, ER = { x: 124, y: 50 };
       const MAX_ROT = 12, MAX_PUP = 2.5;
       let tR=0, cR=0, tPX=0, cPX=0, tPY=0, cPY=0;
-
+ 
       function track(cx, cy) {
         const r = svg.getBoundingClientRect();
         if (!r.width) return;
@@ -1244,7 +1192,7 @@
         tPX = (dx / d) * MAX_PUP;
         tPY = (dy / d) * MAX_PUP;
       }
-
+ 
       addEventListener('mousemove', e => {
         if (!$('labView').classList.contains('active-view')) return;
         track(e.clientX, e.clientY);
@@ -1253,7 +1201,7 @@
         if (!$('labView').classList.contains('active-view')) return;
         track(e.touches[0].clientX, e.touches[0].clientY);
       }, { passive: true });
-
+ 
       (function loop() {
         cR += (tR - cR) * 0.08;
         cPX += (tPX - cPX) * 0.12;
@@ -1266,18 +1214,18 @@
         requestAnimationFrame(loop);
       })();
     }
-
+ 
     /* ══════════════════ AI MODEL ══════════════════ */
     let mnModel=null, mnImage=null, tfLoading=false;
     const loadScript = src => new Promise((res, rej) => {
       const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej;
       document.head.appendChild(s);
     });
-
+ 
     function setupAI() {
       const btn = $('aiPowerBtn'), st = $('aiStatus'), dz = $('aiDropZone'),
             fi = $('aiFileInput'), pv = $('aiPreview'), cb = $('aiClassifyBtn');
-
+ 
       btn?.addEventListener('click', () => {
         if (tfLoading || mnModel) return;
         tfLoading = true; btn.disabled = true;
@@ -1289,19 +1237,19 @@
           .then(m => { mnModel = m; btn.style.display = 'none'; st.textContent = '✓ Neural network online — upload an image.'; dz.style.display = 'block'; })
           .catch(() => { tfLoading = false; btn.disabled = false; btn.innerHTML = '<i class="fas fa-redo"></i> &nbsp;Retry'; st.textContent = 'Failed to load. Check connection.'; });
       });
-
+ 
       dz?.addEventListener('click', () => fi.click());
       dz?.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
       dz?.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
       dz?.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); const f = e.dataTransfer.files[0]; if (f?.type.startsWith('image/')) loadImg(f); });
       fi?.addEventListener('change', () => { if (fi.files[0]) loadImg(fi.files[0]); });
-
+ 
       function loadImg(f) {
         const r = new FileReader();
         r.onload = e => { pv.src = e.target.result; pv.style.display = 'block'; pv.onload = () => { mnImage = pv; }; cb.style.display = 'block'; $('aiResults').innerHTML = ''; };
         r.readAsDataURL(f);
       }
-
+ 
       cb?.addEventListener('click', () => {
         if (!mnModel || !mnImage) return;
         cb.disabled = true; cb.innerHTML = '<i class="fas fa-brain fa-spin"></i> &nbsp;Analysing…';
@@ -1321,7 +1269,7 @@
         }).catch(() => { cb.disabled = false; cb.innerHTML = '<i class="fas fa-microscope"></i> &nbsp;Retry'; $('aiResults').innerHTML = '<p style="color:#f87171;font-size:0.82rem;">Analysis failed.</p>'; });
       });
     }
-
+ 
     /* ══════════════════ PARTICLE FIELD ══════════════════ */
     let particlesReady = false;
     function initParticleField() {
@@ -1331,14 +1279,14 @@
       const dpr = devicePixelRatio || 1;
       let W, H, particles = [], mx = -9999, my = -9999;
       const COUNT = 70, MAX_DIST = 95;
-
+ 
       function resize() {
         const r = cv.getBoundingClientRect();
         W = r.width; H = r.height;
         cv.width = W * dpr; cv.height = H * dpr;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
-
+ 
       function makeParticles() {
         particles = [];
         for (let i = 0; i < COUNT; i++) {
@@ -1351,14 +1299,14 @@
           });
         }
       }
-
+ 
       resize(); makeParticles();
       addEventListener('resize', () => { resize(); });
-
+ 
       cv.addEventListener('mousemove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
       cv.addEventListener('mouseleave', () => { mx = -9999; my = -9999; });
       cv.addEventListener('touchmove', e => { const r = cv.getBoundingClientRect(); mx = e.touches[0].clientX - r.left; my = e.touches[0].clientY - r.top; }, { passive: true });
-
+ 
       $('pfBurst').addEventListener('click', () => {
         const cx = W/2, cy = H/2;
         particles.forEach(p => {
@@ -1368,16 +1316,15 @@
         });
       });
       $('pfReset').addEventListener('click', makeParticles);
-
+ 
       let frames = 0, lastTs = performance.now(), fps = 0, links = 0;
       $('pfNodes').textContent = COUNT;
-
+ 
       function step(ts) {
         frames++;
         if (ts - lastTs > 500) { fps = Math.round(frames * 1000 / (ts - lastTs)); $('pfFps').textContent = fps; frames = 0; lastTs = ts; }
         ctx.clearRect(0, 0, W, H);
-
-        // update
+ 
         particles.forEach(p => {
           p.x += p.vx; p.y += p.vy;
           if (mx > -9000) {
@@ -1389,8 +1336,7 @@
           if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
           if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
         });
-
-        // links
+ 
         links = 0;
         for (let i = 0; i < particles.length; i++) {
           for (let j = i+1; j < particles.length; j++) {
@@ -1409,20 +1355,19 @@
           }
         }
         $('pfLinks').textContent = links;
-
-        // particles
+ 
         particles.forEach(p => {
           ctx.fillStyle = p.hue === 'cyan' ? '#00f5ff' : '#a855f7';
           ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 8;
           ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
         });
         ctx.shadowBlur = 0;
-
+ 
         requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
     }
-
+ 
     /* ══════════════════ CYBER ORACLE ══════════════════ */
     const POS = ['love','great','amazing','awesome','cool','excellent','fantastic','wonderful','happy','joy','perfect','beautiful','best','win','victory','achieve','brilliant','smart','genius','innovative','impressive','proud','enjoy','like','good','nice','glad','delighted','sweet','adore','wow','yay','epic','outstanding','superb','marvellous','marvelous','positive','thanks','thank','grateful','appreciate'];
     const NEG = ['hate','bad','terrible','awful','horrible','sad','angry','mad','worst','fail','lose','broken','wrong','disappointed','frustrated','annoying','stupid','dumb','poor','ugly','dislike','boring','tired','sick','pain','painful','hurt','useless','garbage','trash','no','never','cannot',"can't",'fear','afraid','sorry'];
@@ -1435,7 +1380,7 @@
       '🌑 SADNESS':    ['sad','depressed','unhappy','miserable','cry','grief','sorrow','lonely','tired'],
       '💜 LOVE':       ['love','adore','romantic','sweetheart','cherish','passion','heart']
     };
-
+ 
     function setupOracle() {
       $('oracleBtn')?.addEventListener('click', () => {
         const text = $('oracleInput').value.trim();
@@ -1445,27 +1390,27 @@
         words.forEach(w => { if (POS.includes(w)) pos++; if (NEG.includes(w)) neg++; });
         let emo = '⚙ NEUTRAL', max = 0;
         Object.entries(EMO).forEach(([k, arr]) => { const s = arr.filter(x => words.includes(x)).length; if (s > max) { max = s; emo = k; } });
-
+ 
         const total = pos - neg;
         let sentiment, color;
         if (total > 1) { sentiment = 'POSITIVE'; color = '#00f5ff'; }
         else if (total < -1) { sentiment = 'NEGATIVE'; color = '#f87171'; }
         else { sentiment = 'NEUTRAL'; color = '#a855f7'; }
-
+ 
         const meter = Math.min(98, Math.max(2, 50 + total * 7));
         const energy = Math.min(100, Math.round(((pos+neg) / Math.max(1, words.length)) * 250)) + '%';
-
+ 
         $('orcSentiment').textContent = sentiment;
         $('orcSentiment').style.color = color;
         $('orcEmotion').textContent = emo;
         $('orcEnergy').textContent = energy;
         $('orcWords').textContent = words.length;
         $('orcMeter').style.width = meter + '%';
-
+ 
         $('oracleResult').classList.add('visible');
       });
     }
-
+ 
     /* ══════════════════ INIT ══════════════════ */
     function init() {
       document.querySelectorAll('[data-nav]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); navigateTo(el.getAttribute('data-nav')); }));
@@ -1478,3 +1423,4 @@
   </script>
 </body>
 </html>
+ 
