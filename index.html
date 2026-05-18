@@ -11,11 +11,81 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
  
   <style>
+    #chat-fab{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+#chat-window{
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    z-index: 999;
+}
+
+.chat-header{
+    background: black;
+    color: white;
+    padding: 15px;
+    font-size: 20px;
+}
+
+#chat-messages{
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.chat-input-row{
+    display: flex;
+    padding: 10px;
+}
+
+.chat-input-row input{
+    flex: 1;
+    padding: 10px;
+}
+
+.chat-input-row button{
+    padding: 10px;
+}
+
+.msg{
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.user{
+    background: #d1e7ff;
+}
+
+.bot{
+    background: #eeeeee;
+}
     /* ─────────────────── RESET & BASE ─────────────────── */
     * { margin: 0; padding: 0; box-sizing: border-box; }
  
     html { scroll-behavior: smooth; }
- <script src="//code.tidio.co/hzhmimrh3iyrlu3wv1dmtd0h83xrzxve.js" async></script>
+
     body {
       background: radial-gradient(circle at 15% 20%, #060b1a, #020508);
       color: #e2eeff;
@@ -982,6 +1052,78 @@
   <footer><p>⚡ SteelCircuits — pure robotics showcase | no sales, just sparks &amp; code ⚡</p></footer>
  
   <script>
+    const API_KEY = "AIzaSyAkQLU2ikZ5oM1iY3SKKtHB0B7z-IoSrFc";
+
+function toggleChat(){
+
+    const chat = document.getElementById("chat-window");
+
+    if(chat.style.display === "flex"){
+        chat.style.display = "none";
+    }else{
+        chat.style.display = "flex";
+    }
+}
+
+async function sendMessage(){
+
+    const input = document.getElementById("user-input");
+
+    const message = input.value;
+
+    if(message.trim() === "") return;
+
+    const messages = document.getElementById("chat-messages");
+
+    messages.innerHTML += `
+        <div class="msg user">${message}</div>
+    `;
+
+    input.value = "";
+
+    try{
+
+        const response = await fetch(
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+{
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        contents: [{
+            parts: [{
+                text:
+`You are Devansh AI.
+You help with robotics, Arduino, Raspberry Pi, coding, electronics, and AI projects.
+Speak in a friendly way.
+
+User: ${message}`
+            }]
+        }]
+    })
+}
+);
+
+const data = await response.json();
+
+const botReply =
+data.candidates[0].content.parts[0].text;
+
+messages.innerHTML += `
+<div class="msg bot">${botReply}</div>
+`;
+
+messages.scrollTop = messages.scrollHeight;
+
+    }catch(error){
+
+        messages.innerHTML += `
+<div class="msg bot">Error connecting to AI.</div>
+`;
+    }
+}
+    
     /* ══════════════════ DATA ══════════════════ */
     const projects = [
       {
@@ -1421,6 +1563,22 @@
     }
     init();
   </script>
+  <!-- CHAT BUTTON -->
+<button id="chat-fab" onclick="toggleChat()">💬</button>
+
+<!-- CHAT WINDOW -->
+<div id="chat-window">
+    <div class="chat-header">
+        Devansh AI
+    </div>
+
+    <div id="chat-messages"></div>
+
+    <div class="chat-input-row">
+        <input type="text" id="user-input" placeholder="Ask me anything...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
 </body>
 </html>
  
