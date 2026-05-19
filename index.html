@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="description" content="SteelCircuits — live robotics showcase, AI demos, and interactive experiments.">
+  <meta name="description" content="SteelCircuits — live robotics showcase, AI demos, and interactive experiments by Devansh.">
   <title>SteelCircuits | Futuristic Robotics Video Showcase</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- GLOBAL CURSOR FOLLOWER -->
+  <!-- CURSOR FOLLOWER -->
   <div class="cursor-orb" id="cursorOrb"></div>
   <div class="cursor-dot" id="cursorDot"></div>
 
@@ -24,392 +24,221 @@
     Opening WhatsApp — click Send in the app!
   </div>
 
+  <!-- PROJECT DETAIL MODAL -->
+  <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+      <div id="projectDetailContent"></div>
+    </div>
+  </div>
+
   <!-- HEADER -->
-  <header class="site-header">
+  <header class="site-header" id="siteHeader">
     <div class="nav-container">
-      <a href="#" data-nav="home" class="logo" style="text-decoration:none;">
+      <a href="#hero" class="logo">
         <img src="logo.png" alt="SteelCircuits Logo" class="logo-img" onerror="this.style.display='none'">
         <div class="logo-copy">
           <div class="logo-text">STEELCIRCUITS</div>
           <div class="logo-tagline">ROBOTICS · AUTOMATION · INNOVATION</div>
         </div>
       </a>
-      <div class="nav-links">
-        <a href="#" data-nav="home" class="active"><i class="fas fa-microchip"></i> Home</a>
-        <a href="#" data-nav="lab" class="lab-link"><i class="fas fa-flask"></i> Neural Forge</a>
-        <a href="#" data-nav="about"><i class="fas fa-user-astronaut"></i> About</a>
-        <a href="#" data-nav="contact"><i class="fas fa-envelope"></i> Contact</a>
-      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#projects" class="nav-link"><i class="fas fa-microchip"></i> Projects</a>
+        <a href="#about" class="nav-link"><i class="fas fa-user-astronaut"></i> About</a>
+        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="hero" id="heroSection">
+  <section class="hero" id="hero">
     <p class="hero-eyebrow scroll-reveal">⚡ Built from scratch. Wired to impress.</p>
     <h1 class="hero-heading scroll-reveal" data-delay="1">Robots don't dream —<br>but their builders do.</h1>
     <p class="hero-sub scroll-reveal" data-delay="2">
       A live archive of real robotics builds — from racing bots to AI-controlled machines.
       No fluff, no theory. Just circuits, code, and motion.
     </p>
-    <a href="#" class="hero-cta scroll-reveal" data-delay="3" data-nav="home">
+    <a href="#projects" class="hero-cta scroll-reveal" data-delay="3">
       <i class="fas fa-robot"></i> Explore Projects
     </a>
   </section>
 
-  <main class="app-container">
-
-    <!-- HOME -->
-    <div id="homeView" class="view active-view">
-      <div class="scroll-reveal" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem;">
-        <h2 style="font-family:'Orbitron';font-size:1.3rem;display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#fff,#00f5ff);-webkit-background-clip:text;background-clip:text;color:transparent;">
-          <i class="fas fa-robot" style="color:#00f5ff;"></i> Project Feed
-          <span id="projectCount" style="font-size:0.65rem;background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.25);padding:0.2rem 0.7rem;border-radius:2rem;color:#00f5ff;"></span>
-        </h2>
-      </div>
-
-      <div class="search-wrapper scroll-reveal" data-delay="1">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="Search projects by name, keyword, or component…" autocomplete="off">
-      </div>
-
-      <div id="videoGridContainer" class="video-grid"></div>
-      <div class="no-results" id="noResults">
-        <i class="fas fa-satellite-dish"></i> No projects found for "<span id="noResultsQuery"></span>"
-      </div>
+  <!-- PROJECTS SECTION -->
+  <section class="page-section" id="projects">
+    <div class="section-header scroll-reveal">
+      <p class="section-eyebrow">⬡ MY BUILDS ⬡</p>
+      <h2 class="section-title">Project Feed</h2>
+      <p class="section-sub">Real machines. Real code. Real results.</p>
     </div>
 
-    <!-- DETAIL -->
-    <div id="detailView" class="view">
-      <button id="backHomeBtn" class="back-home"><i class="fas fa-arrow-left"></i> Back to Gallery</button>
-      <div id="projectDetailContent"></div>
+    <div class="projects-toolbar scroll-reveal" data-delay="1">
+      <span id="projectCount" class="project-badge"></span>
     </div>
 
-    <!-- NEURAL FORGE -->
-    <div id="labView" class="view">
-      <div class="neural-forge-header scroll-reveal">
-        <p class="neural-forge-eyebrow">⬡ INTERACTIVE EXPERIMENTS ⬡</p>
-        <h2 class="neural-forge-title">NEURAL FORGE</h2>
-        <p class="neural-forge-sub">WHERE STEEL MEETS SYNTHETIC INTELLIGENCE</p>
-        <div class="lab-divider"></div>
-      </div>
+    <div class="search-wrapper scroll-reveal" data-delay="2">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search projects by name, keyword, or component…" autocomplete="off">
+    </div>
 
-      <div class="lab-grid">
+    <div id="videoGridContainer" class="video-grid"></div>
+    <div class="no-results" id="noResults">
+      <i class="fas fa-satellite-dish"></i> No projects found for "<span id="noResultsQuery"></span>"
+    </div>
+  </section>
 
-        <!-- REALISTIC HUMANOID ROBOT -->
-        <div class="lab-card scroll-reveal" data-delay="1">
-          <div class="lab-card-title"><i class="fas fa-robot" style="color:#00f5ff;margin-right:8px;"></i>Sentinel A-7 Humanoid Unit</div>
-          <div class="lab-card-sub">Bipedal android · cursor-reactive head &amp; ocular tracking</div>
+  <!-- ABOUT SECTION -->
+  <section class="page-section" id="about">
+    <div class="section-header scroll-reveal">
+      <p class="section-eyebrow">⬡ THE BUILDER ⬡</p>
+      <h2 class="section-title">About Me</h2>
+      <p class="section-sub">Circuits. Code. Creation.</p>
+    </div>
 
-          <div class="robot-stage">
-            <svg id="steelBot" viewBox="0 0 220 470" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="rsg" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%"  stop-color="#6d7c8d"/>
-                  <stop offset="45%" stop-color="#3a4555"/>
-                  <stop offset="100%" stop-color="#161e28"/>
-                </linearGradient>
-                <linearGradient id="rsg2" x1="100%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%"  stop-color="#7a8a9a"/>
-                  <stop offset="45%" stop-color="#3a4555"/>
-                  <stop offset="100%" stop-color="#161e28"/>
-                </linearGradient>
-                <linearGradient id="rdsg" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%"  stop-color="#1f2832"/>
-                  <stop offset="100%" stop-color="#0a0f16"/>
-                </linearGradient>
-                <linearGradient id="rhsg" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%"  stop-color="#a8b5c5"/>
-                  <stop offset="100%" stop-color="#404e60"/>
-                </linearGradient>
-                <linearGradient id="visor" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%"  stop-color="#001a33"/>
-                  <stop offset="50%" stop-color="#003366" stop-opacity="0.8"/>
-                  <stop offset="100%" stop-color="#00aacc" stop-opacity="0.6"/>
-                </linearGradient>
-                <radialGradient id="coreLight" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%"  stop-color="#ffffff"/>
-                  <stop offset="35%" stop-color="#00f5ff"/>
-                  <stop offset="100%" stop-color="#003366" stop-opacity="0"/>
-                </radialGradient>
-                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="2" result="b"/>
-                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-                <filter id="sglow" x="-100%" y="-100%" width="300%" height="300%">
-                  <feGaussianBlur stdDeviation="5" result="b"/>
-                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-                <filter id="shadow" x="-15%" y="-15%" width="130%" height="135%">
-                  <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/>
-                </filter>
-              </defs>
+    <div class="about-layout">
 
-              <ellipse cx="110" cy="462" rx="55" ry="6" fill="#00f5ff" opacity="0.12"/>
-              <ellipse cx="110" cy="462" rx="38" ry="3.5" fill="#a855f7" opacity="0.08"/>
-
-              <path d="M 60 442 L 102 442 L 105 458 L 56 460 Z" fill="url(#rdsg)" filter="url(#shadow)"/>
-              <path d="M 62 444 L 100 444 L 100 449 L 62 449 Z" fill="url(#rhsg)" opacity="0.3"/>
-              <path d="M 160 442 L 118 442 L 115 458 L 164 460 Z" fill="url(#rdsg)" filter="url(#shadow)"/>
-              <path d="M 158 444 L 120 444 L 120 449 L 158 449 Z" fill="url(#rhsg)" opacity="0.3"/>
-
-              <rect x="68" y="430" width="32" height="16" rx="3" fill="url(#rsg)"/>
-              <rect x="120" y="430" width="32" height="16" rx="3" fill="url(#rsg2)"/>
-
-              <path d="M 70 360 L 100 358 L 102 432 L 66 432 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-              <path d="M 76 365 L 84 365 L 86 425 L 72 425 Z" fill="url(#rhsg)" opacity="0.25"/>
-              <line x1="89" y1="370" x2="91" y2="425" stroke="#0a0f16" stroke-width="1" opacity="0.5"/>
-              <rect x="92" y="380" width="4" height="40" rx="1" fill="url(#rdsg)"/>
-              <circle cx="94" cy="385" r="2" fill="#00f5ff" opacity="0.5"/>
-              <circle cx="94" cy="415" r="2" fill="#00f5ff" opacity="0.5"/>
-
-              <path d="M 150 360 L 120 358 L 118 432 L 154 432 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
-              <path d="M 144 365 L 136 365 L 134 425 L 148 425 Z" fill="url(#rhsg)" opacity="0.25"/>
-              <line x1="131" y1="370" x2="129" y2="425" stroke="#0a0f16" stroke-width="1" opacity="0.5"/>
-              <rect x="124" y="380" width="4" height="40" rx="1" fill="url(#rdsg)"/>
-              <circle cx="126" cy="385" r="2" fill="#00f5ff" opacity="0.5"/>
-              <circle cx="126" cy="415" r="2" fill="#00f5ff" opacity="0.5"/>
-
-              <circle cx="84" cy="358" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
-              <circle cx="84" cy="358" r="7"  fill="url(#rdsg)"/>
-              <circle cx="84" cy="358" r="3"  fill="#00f5ff" class="joint-glow"/>
-              <circle cx="136" cy="358" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
-              <circle cx="136" cy="358" r="7"  fill="url(#rdsg)"/>
-              <circle cx="136" cy="358" r="3"  fill="#00f5ff" class="joint-glow"/>
-
-              <path d="M 76 268 L 102 268 L 100 358 L 70 358 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-              <ellipse cx="86" cy="305" rx="11" ry="28" fill="url(#rhsg)" opacity="0.2"/>
-              <line x1="92" y1="278" x2="93" y2="354" stroke="#0a0f16" stroke-width="1" opacity="0.4"/>
-
-              <path d="M 144 268 L 118 268 L 120 358 L 150 358 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
-              <ellipse cx="134" cy="305" rx="11" ry="28" fill="url(#rhsg)" opacity="0.2"/>
-              <line x1="128" y1="278" x2="127" y2="354" stroke="#0a0f16" stroke-width="1" opacity="0.4"/>
-
-              <circle cx="86" cy="265" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
-              <circle cx="86" cy="265" r="6"  fill="url(#rdsg)"/>
-              <circle cx="134" cy="265" r="13" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1.2"/>
-              <circle cx="134" cy="265" r="6"  fill="url(#rdsg)"/>
-
-              <path d="M 70 240 L 150 240 L 144 268 L 76 268 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-              <rect x="98" y="245" width="24" height="20" rx="2" fill="url(#rdsg)" opacity="0.7"/>
-              <line x1="110" y1="246" x2="110" y2="263" stroke="#00f5ff" stroke-width="0.6" opacity="0.4"/>
-
-              <path d="M 56 108 L 164 108 L 158 200 L 152 240 L 68 240 L 62 200 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-              <path d="M 70 116 L 108 116 L 108 175 L 74 178 Z" fill="url(#rsg2)" opacity="0.45"/>
-              <path d="M 150 116 L 112 116 L 112 175 L 146 178 Z" fill="url(#rsg)" opacity="0.45"/>
-              <line x1="110" y1="116" x2="110" y2="240" stroke="#080d14" stroke-width="2"/>
-              <path d="M 56 108 L 86 108 L 84 118 L 60 118 Z" fill="url(#rdsg)"/>
-              <path d="M 164 108 L 134 108 L 136 118 L 160 118 Z" fill="url(#rdsg)"/>
-              <circle cx="110" cy="138" r="6.5" fill="url(#coreLight)" filter="url(#sglow)" class="reactor-pulse"/>
-              <circle cx="110" cy="138" r="3" fill="#fff"/>
-              <line x1="68" y1="160" x2="152" y2="160" stroke="#080d14" stroke-width="1" opacity="0.5"/>
-              <line x1="72" y1="195" x2="148" y2="195" stroke="#080d14" stroke-width="1" opacity="0.4"/>
-              <rect x="86" y="178" width="48" height="11" rx="2" fill="url(#rdsg)" opacity="0.65"/>
-              <rect x="86" y="192" width="48" height="11" rx="2" fill="url(#rdsg)" opacity="0.65"/>
-              <rect x="86" y="206" width="48" height="11" rx="2" fill="url(#rdsg)" opacity="0.55"/>
-              <line x1="78" y1="142" x2="100" y2="142" stroke="#00f5ff" stroke-width="0.6" opacity="0.5"/>
-              <line x1="120" y1="142" x2="142" y2="142" stroke="#00f5ff" stroke-width="0.6" opacity="0.5"/>
-
-              <circle cx="44"  cy="120" r="20" fill="url(#rhsg)" stroke="#0a0f16" stroke-width="1.5" filter="url(#shadow)"/>
-              <circle cx="44"  cy="120" r="13" fill="url(#rsg)"/>
-              <circle cx="44"  cy="120" r="6"  fill="url(#rdsg)"/>
-              <circle cx="44"  cy="120" r="2"  fill="#00f5ff" class="joint-glow"/>
-              <circle cx="176" cy="120" r="20" fill="url(#rhsg)" stroke="#0a0f16" stroke-width="1.5" filter="url(#shadow)"/>
-              <circle cx="176" cy="120" r="13" fill="url(#rsg2)"/>
-              <circle cx="176" cy="120" r="6"  fill="url(#rdsg)"/>
-              <circle cx="176" cy="120" r="2"  fill="#00f5ff" class="joint-glow"/>
-
-              <path d="M 30 135 L 58 132 L 56 215 L 32 215 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-              <ellipse cx="44" cy="170" rx="11" ry="22" fill="url(#rhsg)" opacity="0.22"/>
-              <line x1="48" y1="145" x2="49" y2="210" stroke="#0a0f16" stroke-width="0.8" opacity="0.4"/>
-              <circle cx="42" cy="218" r="11" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1"/>
-              <circle cx="42" cy="218" r="5"  fill="url(#rdsg)"/>
-              <circle cx="42" cy="218" r="2"  fill="#00f5ff" class="joint-glow"/>
-              <path d="M 30 224 L 54 224 L 52 290 L 30 290 Z" fill="url(#rsg)" filter="url(#shadow)"/>
-              <line x1="42" y1="230" x2="42" y2="285" stroke="#0a0f16" stroke-width="0.7" opacity="0.4"/>
-              <rect x="30" y="290" width="22" height="8" rx="2" fill="url(#rdsg)"/>
-              <path d="M 28 298 L 54 298 L 53 318 L 29 318 Z" fill="url(#rsg)"/>
-              <rect x="30" y="316" width="3" height="9" rx="1" fill="url(#rsg)"/>
-              <rect x="35" y="318" width="3" height="11" rx="1" fill="url(#rsg)"/>
-              <rect x="40" y="318" width="3" height="11" rx="1" fill="url(#rsg)"/>
-              <rect x="45" y="316" width="3" height="9" rx="1" fill="url(#rsg)"/>
-              <ellipse cx="26" cy="308" rx="3" ry="5" fill="url(#rdsg)"/>
-
-              <path d="M 190 135 L 162 132 L 164 215 L 188 215 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
-              <ellipse cx="176" cy="170" rx="11" ry="22" fill="url(#rhsg)" opacity="0.22"/>
-              <line x1="172" y1="145" x2="171" y2="210" stroke="#0a0f16" stroke-width="0.8" opacity="0.4"/>
-              <circle cx="178" cy="218" r="11" fill="url(#rhsg)" stroke="#1a2230" stroke-width="1"/>
-              <circle cx="178" cy="218" r="5"  fill="url(#rdsg)"/>
-              <circle cx="178" cy="218" r="2"  fill="#00f5ff" class="joint-glow"/>
-              <path d="M 190 224 L 166 224 L 168 290 L 190 290 Z" fill="url(#rsg2)" filter="url(#shadow)"/>
-              <line x1="178" y1="230" x2="178" y2="285" stroke="#0a0f16" stroke-width="0.7" opacity="0.4"/>
-              <rect x="168" y="290" width="22" height="8" rx="2" fill="url(#rdsg)"/>
-              <path d="M 192 298 L 166 298 L 167 318 L 191 318 Z" fill="url(#rsg2)"/>
-              <rect x="187" y="316" width="3" height="9" rx="1" fill="url(#rsg2)"/>
-              <rect x="182" y="318" width="3" height="11" rx="1" fill="url(#rsg2)"/>
-              <rect x="177" y="318" width="3" height="11" rx="1" fill="url(#rsg2)"/>
-              <rect x="172" y="316" width="3" height="9" rx="1" fill="url(#rsg2)"/>
-              <ellipse cx="194" cy="308" rx="3" ry="5" fill="url(#rdsg)"/>
-
-              <rect x="98" y="86" width="24" height="22" rx="3" fill="url(#rdsg)"/>
-              <line x1="103" y1="90" x2="103" y2="106" stroke="#0a0f16" stroke-width="1.2"/>
-              <line x1="110" y1="90" x2="110" y2="106" stroke="#0a0f16" stroke-width="1.2"/>
-              <line x1="117" y1="90" x2="117" y2="106" stroke="#0a0f16" stroke-width="1.2"/>
-              <path d="M 92 105 L 128 105 L 126 112 L 94 112 Z" fill="url(#rsg)"/>
-
-              <g id="robotHead" transform="rotate(0, 110, 95)">
-                <path d="M 82 24 Q 84 14 96 12 L 124 12 Q 136 14 138 24 L 140 70 Q 138 84 130 86 L 90 86 Q 82 84 80 70 Z"
-                      fill="url(#rsg)" filter="url(#shadow)"/>
-                <path d="M 88 18 Q 92 14 96 14 L 124 14 Q 128 14 132 18 L 132 26 L 88 26 Z" fill="url(#rhsg)" opacity="0.5"/>
-                <rect x="106" y="6" width="8" height="8" rx="1" fill="url(#rdsg)"/>
-                <circle cx="110" cy="5" r="2.5" fill="#00f5ff" filter="url(#sglow)" class="antenna-blink"/>
-                <rect x="94" y="28" width="32" height="6" rx="2" fill="url(#rdsg)" opacity="0.7"/>
-                <circle cx="100" cy="31" r="1.2" fill="#a855f7"/>
-                <circle cx="110" cy="31" r="1.2" fill="#00f5ff"/>
-                <circle cx="120" cy="31" r="1.2" fill="#a855f7"/>
-                <rect x="78" y="40" width="6" height="28" rx="1.5" fill="url(#rdsg)"/>
-                <line x1="80" y1="44" x2="80" y2="64" stroke="#00f5ff" stroke-width="0.6" opacity="0.6"/>
-                <rect x="136" y="40" width="6" height="28" rx="1.5" fill="url(#rdsg)"/>
-                <line x1="140" y1="44" x2="140" y2="64" stroke="#00f5ff" stroke-width="0.6" opacity="0.6"/>
-                <path d="M 86 40 L 134 40 Q 138 40 138 44 L 138 56 Q 138 60 134 60 L 86 60 Q 82 60 82 56 L 82 44 Q 82 40 86 40 Z"
-                      fill="url(#visor)" stroke="#00f5ff" stroke-width="0.8" filter="url(#glow)"/>
-                <rect x="86" y="42" width="20" height="4" rx="2" fill="#fff" opacity="0.18"/>
-                <circle cx="96"  cy="50" r="4" fill="#001833"/>
-                <circle cx="124" cy="50" r="4" fill="#001833"/>
-                <circle cx="96"  cy="50" r="3" fill="#00f5ff" opacity="0.85" filter="url(#glow)"/>
-                <circle cx="124" cy="50" r="3" fill="#00f5ff" opacity="0.85" filter="url(#glow)"/>
-                <circle id="pupilL" cx="96"  cy="50" r="1.4" fill="#001833"/>
-                <circle id="pupilR" cx="124" cy="50" r="1.4" fill="#001833"/>
-                <line x1="82" y1="65" x2="138" y2="65" stroke="#080d14" stroke-width="0.8" opacity="0.5"/>
-                <path d="M 92 66 L 128 66 L 124 82 L 96 82 Z" fill="url(#rdsg)" opacity="0.5"/>
-                <rect x="100" y="72" width="20" height="5" rx="1" fill="url(#rdsg)"/>
-                <line x1="103" y1="73" x2="103" y2="76" stroke="#3a4555" stroke-width="0.5"/>
-                <line x1="107" y1="73" x2="107" y2="76" stroke="#3a4555" stroke-width="0.5"/>
-                <line x1="111" y1="73" x2="111" y2="76" stroke="#3a4555" stroke-width="0.5"/>
-                <line x1="115" y1="73" x2="115" y2="76" stroke="#3a4555" stroke-width="0.5"/>
-                <circle cx="110" cy="83" r="1.5" fill="url(#rhsg)"/>
-                <circle cx="86" cy="34" r="1.5" fill="url(#rhsg)"/>
-                <circle cx="134" cy="34" r="1.5" fill="url(#rhsg)"/>
-                <circle cx="86" cy="78" r="1.5" fill="url(#rhsg)"/>
-                <circle cx="134" cy="78" r="1.5" fill="url(#rhsg)"/>
-              </g>
-            </svg>
-          </div>
-          <p class="robot-tip">⬡ A-7 IS TRACKING YOUR CURSOR ⬡</p>
-        </div>
-
-        <!-- AI MODEL CARD -->
-        <div class="lab-card scroll-reveal" data-delay="2">
-          <div class="lab-card-title"><i class="fas fa-brain" style="color:#a855f7;margin-right:8px;"></i>Synthetic Vision Core</div>
-          <div class="lab-card-sub">MobileNet V2 — pretrained 1000-class image classifier</div>
-          <p style="font-size:0.8rem;color:#4d7a9a;line-height:1.6;margin-bottom:1rem;">
-            A real pretrained neural network running entirely in your browser.
-            Power it on, upload any image, and it classifies what it sees.
-          </p>
-          <button id="aiPowerBtn" class="ai-power-btn"><i class="fas fa-power-off"></i> &nbsp;POWER ON — Load AI Model</button>
-          <p class="ai-status" id="aiStatus">Click POWER ON to initialize the neural network.</p>
-          <div class="ai-upload-area" id="aiDropZone">
-            <i class="fas fa-microchip"></i>
-            <p>Drop an image or click to upload</p>
-          </div>
-          <input type="file" id="aiFileInput" accept="image/*" style="display:none">
-          <img id="aiPreview" alt="Preview">
-          <button class="ai-classify-btn" id="aiClassifyBtn"><i class="fas fa-microscope"></i> &nbsp;Analyze with AI</button>
-          <div id="aiResults"></div>
-        </div>
-
-        <!-- PARTICLE FIELD -->
-        <div class="lab-card scroll-reveal" data-delay="3">
-          <div class="lab-card-title"><i class="fas fa-atom" style="color:#00f5ff;margin-right:8px;"></i>Quantum Particle Field</div>
-          <div class="lab-card-sub">Real-time particle physics · cursor attracts the swarm</div>
-          <div class="particle-stage">
-            <canvas id="particleCanvas"></canvas>
-          </div>
-          <div class="particle-info">
-            <span><b id="pfNodes">0</b> nodes</span>
-            <span><b id="pfLinks">0</b> links</span>
-            <span><b id="pfFps">0</b> fps</span>
-          </div>
-          <div class="particle-controls">
-            <button class="pf-btn" id="pfBurst"><i class="fas fa-bolt"></i> Detonate</button>
-            <button class="pf-btn" id="pfReset"><i class="fas fa-redo"></i> Reset</button>
-          </div>
-        </div>
-
-        <!-- CYBER ORACLE -->
-        <div class="lab-card scroll-reveal" data-delay="4">
-          <div class="lab-card-title"><i class="fas fa-eye" style="color:#a855f7;margin-right:8px;"></i>Cyber Oracle</div>
-          <div class="lab-card-sub">Sentiment &amp; emotion analysis · feed it text, get its read</div>
-          <textarea class="oracle-input" id="oracleInput" placeholder="Type any sentence or paragraph here — the oracle will analyse its emotional signature..."></textarea>
-          <button class="oracle-btn" id="oracleBtn"><i class="fas fa-magic"></i> &nbsp;Decode Sentiment</button>
-          <div class="oracle-result" id="oracleResult">
-            <div class="oracle-row"><span class="oracle-key">⬡ SENTIMENT</span><span class="oracle-val" id="orcSentiment">—</span></div>
-            <div class="oracle-row"><span class="oracle-key">⬡ EMOTION</span><span class="oracle-val" id="orcEmotion">—</span></div>
-            <div class="oracle-row"><span class="oracle-key">⬡ ENERGY</span><span class="oracle-val" id="orcEnergy">—</span></div>
-            <div class="oracle-row"><span class="oracle-key">⬡ WORD COUNT</span><span class="oracle-val" id="orcWords">—</span></div>
-            <div class="oracle-meter"><div class="oracle-meter-fill" id="orcMeter"></div></div>
-            <div class="oracle-meter-labels"><span>NEGATIVE</span><span>NEUTRAL</span><span>POSITIVE</span></div>
-          </div>
-        </div>
-
-      </div><!-- /lab-grid -->
-    </div><!-- /labView -->
-
-    <!-- ABOUT -->
-    <div id="aboutView" class="view">
+      <!-- Bio card -->
       <div class="about-card scroll-reveal">
-        <h2 style="font-family:'Orbitron';background:linear-gradient(135deg,#fff,#00f5ff,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;">
-          <i class="fas fa-microchip" style="color:#00f5ff;"></i> Neural Circuit Architect
-        </h2>
-        <p style="margin-top:1rem;font-size:1.05rem;color:#8fb4d4;line-height:1.75;">
-          Robotics enthusiast &amp; embedded systems explorer. I design autonomous machines that
-          bridge the gap between code and metal. Every project is a step toward intelligent, reactive robots.
-        </p>
-        <div class="skills">
-          <div class="skill"><i class="fab fa-arduino"></i> Arduino</div>
-          <div class="skill"><i class="fas fa-microchip"></i> Electronics</div>
-          <div class="skill"><i class="fas fa-cogs"></i> Robotics</div>
-          <div class="skill"><i class="fas fa-code"></i> C++ / Python</div>
-          <div class="skill"><i class="fas fa-broadcast-tower"></i> Sensor Fusion</div>
+        <div class="about-top">
+          <div class="about-identity">
+            <h3 class="about-name">Neural Circuit Architect</h3>
+            <div class="exp-badge">
+              <span class="exp-number">4+</span>
+              <div class="exp-text-wrap">
+                <span class="exp-years">YEARS OF</span>
+                <span class="exp-years">EXPERIENCE</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p style="margin-top:1.5rem;color:#5a7a9a;line-height:1.7;">
-          ⚙️ Passionate about open-source robotics, PCB design, and mechanical actuation.
+
+        <p class="about-bio scroll-reveal" data-delay="1">
+          Robotics enthusiast &amp; embedded systems explorer with <strong style="color:#00f5ff;">4+ years</strong> of hands-on building experience.
+          I design autonomous machines that bridge the gap between code and metal — from RFID systems to AI-powered vision bots.
+          Every project is a step toward intelligent, reactive robots that actually work in the real world.
+        </p>
+
+        <p class="about-bio scroll-reveal" data-delay="2">
+          ⚙️ Passionate about open-source robotics, PCB design, computer vision, and mechanical actuation.
           This showcase is a pure video archive of my builds — no commercial intent, only the love for circuits &amp; motion.
         </p>
-      </div>
-    </div>
 
-    <!-- CONTACT -->
-    <div id="contactView" class="view">
-      <div class="contact-card scroll-reveal">
-        <h2 style="font-family:'Orbitron';background:linear-gradient(135deg,#fff,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:1.5rem;">
-          <i class="fas fa-paper-plane" style="color:#a855f7;"></i> Connect with the builder
-        </h2>
-        <div class="contact-info">
-          <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> <a href="tel:+917303177088">+91 7303177088</a></p>
-          <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:devansh8011@gmail.com">devansh8011@gmail.com</a></p>
-          <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> <a href="https://wa.me/917303177088" target="_blank">Click to chat directly</a></p>
+        <!-- Animated stats -->
+        <div class="about-stats scroll-reveal" data-delay="3">
+          <div class="stat-item">
+            <div class="stat-number" data-target="4" data-suffix="+">0</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="10" data-suffix="+">0</div>
+            <div class="stat-label">Projects Built</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="8" data-suffix="+">0</div>
+            <div class="stat-label">Technologies</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="100" data-suffix="%">0</div>
+            <div class="stat-label">Passion Level</div>
+          </div>
         </div>
-        <p style="margin-bottom:1rem;color:#7aa8cc;font-size:0.9rem;">Send a message — it opens directly in WhatsApp:</p>
-        <form id="contactForm">
-          <div class="form-group">
-            <label for="contactName">Your Name</label>
-            <input type="text" id="contactName" placeholder="e.g. Arjun Sharma" required>
-          </div>
-          <div class="form-group">
-            <label for="contactMsg">Your Message</label>
-            <textarea rows="4" id="contactMsg" placeholder="Your message about robotics / projects..." required></textarea>
-          </div>
-          <button type="submit" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
-        </form>
-        <p style="margin-top:1rem;font-size:0.78rem;color:#3d5a80;">
-          * Your message will be pre-filled in WhatsApp for +91 7303177088. Just hit send.
-        </p>
+
+        <!-- Skills -->
+        <div class="skills scroll-reveal" data-delay="4">
+          <div class="skill"><i class="fas fa-microchip"></i> Arduino</div>
+          <div class="skill"><i class="fab fa-python"></i> Python</div>
+          <div class="skill"><i class="fas fa-code"></i> C / C++</div>
+          <div class="skill"><i class="fas fa-eye"></i> OpenCV</div>
+          <div class="skill"><i class="fas fa-wifi"></i> ESP32</div>
+          <div class="skill"><i class="fas fa-cogs"></i> Robotics</div>
+          <div class="skill"><i class="fas fa-broadcast-tower"></i> Sensor Fusion</div>
+          <div class="skill"><i class="fas fa-brain"></i> Machine Learning</div>
+        </div>
       </div>
+
+      <!-- Tech logo carousel -->
+      <div class="tech-section scroll-reveal" data-delay="5">
+        <p class="tech-section-label">⬡ TECHNOLOGIES &amp; TOOLS I'VE WORKED WITH ⬡</p>
+        <div class="carousel-wrapper">
+          <div class="carousel-track">
+            <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-microchip"></i></div><span>Arduino</span></div>
+            <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fab fa-python"></i></div><span>Python</span></div>
+            <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-code"></i></div><span>C / C++</span></div>
+            <div class="tech-logo-item" style="--accent:#22d3ee"><div class="tech-icon"><i class="fas fa-eye"></i></div><span>OpenCV</span></div>
+            <div class="tech-logo-item" style="--accent:#38bdf8"><div class="tech-icon"><i class="fas fa-wifi"></i></div><span>ESP32</span></div>
+            <div class="tech-logo-item" style="--accent:#fb923c"><div class="tech-icon"><i class="fas fa-brain"></i></div><span>TensorFlow</span></div>
+            <div class="tech-logo-item" style="--accent:#4ade80"><div class="tech-icon"><i class="fas fa-user-circle"></i></div><span>MediaPipe</span></div>
+            <div class="tech-logo-item" style="--accent:#e2e8f0"><div class="tech-icon"><i class="fab fa-linux"></i></div><span>Linux</span></div>
+            <div class="tech-logo-item" style="--accent:#ef4444"><div class="tech-icon"><i class="fab fa-raspberry-pi"></i></div><span>Raspberry Pi</span></div>
+            <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-robot"></i></div><span>ROS</span></div>
+            <div class="tech-logo-item" style="--accent:#e2e8f0"><div class="tech-icon"><i class="fab fa-github"></i></div><span>GitHub</span></div>
+            <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-atom"></i></div><span>Physics Sim</span></div>
+            <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-broadcast-tower"></i></div><span>RF Control</span></div>
+            <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fas fa-bolt"></i></div><span>Electronics</span></div>
+            <!-- Duplicated for seamless loop -->
+            <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-microchip"></i></div><span>Arduino</span></div>
+            <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fab fa-python"></i></div><span>Python</span></div>
+            <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-code"></i></div><span>C / C++</span></div>
+            <div class="tech-logo-item" style="--accent:#22d3ee"><div class="tech-icon"><i class="fas fa-eye"></i></div><span>OpenCV</span></div>
+            <div class="tech-logo-item" style="--accent:#38bdf8"><div class="tech-icon"><i class="fas fa-wifi"></i></div><span>ESP32</span></div>
+            <div class="tech-logo-item" style="--accent:#fb923c"><div class="tech-icon"><i class="fas fa-brain"></i></div><span>TensorFlow</span></div>
+            <div class="tech-logo-item" style="--accent:#4ade80"><div class="tech-icon"><i class="fas fa-user-circle"></i></div><span>MediaPipe</span></div>
+            <div class="tech-logo-item" style="--accent:#e2e8f0"><div class="tech-icon"><i class="fab fa-linux"></i></div><span>Linux</span></div>
+            <div class="tech-logo-item" style="--accent:#ef4444"><div class="tech-icon"><i class="fab fa-raspberry-pi"></i></div><span>Raspberry Pi</span></div>
+            <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-robot"></i></div><span>ROS</span></div>
+            <div class="tech-logo-item" style="--accent:#e2e8f0"><div class="tech-icon"><i class="fab fa-github"></i></div><span>GitHub</span></div>
+            <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-atom"></i></div><span>Physics Sim</span></div>
+            <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-broadcast-tower"></i></div><span>RF Control</span></div>
+            <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fas fa-bolt"></i></div><span>Electronics</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="page-section" id="contact">
+    <div class="section-header scroll-reveal">
+      <p class="section-eyebrow">⬡ GET IN TOUCH ⬡</p>
+      <h2 class="section-title">Contact</h2>
+      <p class="section-sub">Let's build something together.</p>
     </div>
 
-  </main>
+    <div class="contact-card scroll-reveal">
+      <h3 class="contact-heading">
+        <i class="fas fa-paper-plane" style="color:#a855f7;"></i> Connect with the builder
+      </h3>
+      <div class="contact-info">
+        <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> <a href="tel:+917303177088">+91 7303177088</a></p>
+        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:devansh8011@gmail.com">devansh8011@gmail.com</a></p>
+        <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> <a href="https://wa.me/917303177088" target="_blank">Click to chat directly</a></p>
+      </div>
+      <p style="margin-bottom:1rem;color:#7aa8cc;font-size:0.9rem;">Send a message — it opens directly in WhatsApp:</p>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="contactName">Your Name</label>
+          <input type="text" id="contactName" placeholder="e.g. Arjun Sharma" required>
+        </div>
+        <div class="form-group">
+          <label for="contactMsg">Your Message</label>
+          <textarea rows="4" id="contactMsg" placeholder="Your message about robotics / projects..." required></textarea>
+        </div>
+        <button type="submit" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+      </form>
+      <p style="margin-top:1rem;font-size:0.78rem;color:#3d5a80;">
+        * Your message will be pre-filled in WhatsApp for +91 7303177088. Just hit send.
+      </p>
+    </div>
+  </section>
 
-  <footer><p>⚡ SteelCircuits — pure robotics showcase | no sales, just sparks &amp; code ⚡</p></footer>
+  <footer>
+    <p>⚡ SteelCircuits — pure robotics showcase | no sales, just sparks &amp; code ⚡</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
