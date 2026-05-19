@@ -51,38 +51,73 @@ const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'
 (function setupCursor() {
   if (matchMedia('(pointer: coarse)').matches) return;
   const orb = $('cursorOrb'), dot = $('cursorDot');
-  let mx = innerWidth/2, my = innerHeight/2;
-  let ox = mx, oy = my;
+  let mx = innerWidth/2, my = innerHeight/2, ox = mx, oy = my;
 
   addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
     dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
   });
 
-  const HOVER_SEL = 'a, button, .video-card, .lab-card, input, textarea, .pf-btn, .ai-upload-area';
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(HOVER_SEL)) document.body.classList.add('cursor-hover');
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(HOVER_SEL)) document.body.classList.remove('cursor-hover');
-  });
+  const HOVER_SEL = 'a, button, .video-card, .tech-logo-item, .skill, .stat-item, input, textarea';
+  document.addEventListener('mouseover', e => { if (e.target.closest(HOVER_SEL)) document.body.classList.add('cursor-hover'); });
+  document.addEventListener('mouseout',  e => { if (e.target.closest(HOVER_SEL)) document.body.classList.remove('cursor-hover'); });
 
-  function loop() {
+  (function loop() {
     ox += (mx - ox) * 0.18;
     oy += (my - oy) * 0.18;
     orb.style.transform = `translate(${ox}px, ${oy}px) translate(-50%, -50%)`;
     requestAnimationFrame(loop);
-  }
-  loop();
+  })();
 })();
 
 /* ══════════════════ SCROLL REVEAL ══════════════════ */
 const scrollObserver = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
 function observeReveals() {
   document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => scrollObserver.observe(el));
+}
+
+/* ══════════════════ HEADER SCROLL STATE ══════════════════ */
+(function setupHeaderScroll() {
+  const header = $('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+/* ══════════════════ ACTIVE NAV ON SCROLL ══════════════════ */
+function setupActiveNav() {
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => { if (s.id) obs.observe(s); });
+}
+
+/* ══════════════════ MOBILE HAMBURGER ══════════════════ */
+function setupMobileNav() {
+  const btn = $('hamburger'), nav = $('navLinks');
+  btn?.addEventListener('click', () => {
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+    });
+  });
 }
 
 /* ══════════════════ WA BANNER ══════════════════ */
@@ -97,10 +132,19 @@ function renderHomeGrid(filter = '') {
   const grid = $('videoGridContainer'), noRes = $('noResults'), badge = $('projectCount');
   const q = filter.trim().toLowerCase();
   const list = q
-    ? projects.filter(p => p.title.toLowerCase().includes(q) || p.shortDesc.toLowerCase().includes(q) || p.componentsUsed.toLowerCase().includes(q))
+    ? projects.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        p.shortDesc.toLowerCase().includes(q) ||
+        p.componentsUsed.toLowerCase().includes(q))
     : projects;
+
   badge.textContent = `${list.length} project${list.length !== 1 ? 's' : ''}`;
-  if (!list.length) { grid.innerHTML = ''; $('noResultsQuery').textContent = filter; noRes.style.display = 'block'; return; }
+  if (!list.length) {
+    grid.innerHTML = '';
+    $('noResultsQuery').textContent = filter;
+    noRes.style.display = 'block';
+    return;
+  }
   noRes.style.display = 'none';
   grid.innerHTML = list.map((p, i) => `
     <div class="video-card scroll-reveal" data-delay="${Math.min(5, i+1)}" data-id="${p.id}">
@@ -114,62 +158,75 @@ function renderHomeGrid(filter = '') {
         <div class="card-desc">${esc(p.shortDesc)}</div>
       </div>
     </div>`).join('');
-  grid.querySelectorAll('.video-card').forEach(c => c.addEventListener('click', () => showDetail(parseInt(c.dataset.id))));
+
+  grid.querySelectorAll('.video-card').forEach(c =>
+    c.addEventListener('click', () => openModal(parseInt(c.dataset.id)))
+  );
   observeReveals();
 }
 
-/* ══════════════════ DETAIL ══════════════════ */
-function showDetail(id) {
+/* ══════════════════ PROJECT MODAL ══════════════════ */
+function openModal(id) {
   const p = projects.find(x => x.id === id);
-  if (!p) { navigateTo('home'); return; }
+  if (!p) return;
   const embed = p.embedUrl.split('?')[0];
-  const badges = p.componentsUsed.split(',').map(c => c.trim()).filter(Boolean).map(c => `<span class="badge">⚡ ${esc(c)}</span>`).join('');
+  const badges = p.componentsUsed.split(',').map(c => c.trim()).filter(Boolean)
+    .map(c => `<span class="badge">⚡ ${esc(c)}</span>`).join('');
+
   $('projectDetailContent').innerHTML = `
-    <div class="video-player-container scroll-reveal">
+    <div class="video-player-container">
       <div class="video-wrapper">
-        <iframe src="${embed}?autoplay=0&rel=0&modestbranding=1"
-          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        <iframe src="${embed}?rel=0&modestbranding=1"
+          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+          allowfullscreen></iframe>
       </div>
     </div>
-    <div class="project-detail-info scroll-reveal" data-delay="1">
+    <div class="project-detail-info">
       <h2 class="detail-title">${esc(p.title)}</h2>
-      <div class="detail-section"><h3><i class="fas fa-info-circle"></i> Detailed Explanation</h3><p>${esc(p.detailedExplanation)}</p></div>
-      <div class="detail-section"><h3><i class="fas fa-microchip"></i> Components Used</h3><div class="components-badge">${badges}</div></div>
-      <div class="detail-section"><h3><i class="fas fa-cogs"></i> Working Explanation</h3><p>${esc(p.workingExplanation)}</p></div>
+      <div class="detail-section">
+        <h3><i class="fas fa-info-circle"></i> Detailed Explanation</h3>
+        <p>${esc(p.detailedExplanation)}</p>
+      </div>
+      <div class="detail-section">
+        <h3><i class="fas fa-microchip"></i> Components Used</h3>
+        <div class="components-badge">${badges}</div>
+      </div>
+      <div class="detail-section">
+        <h3><i class="fas fa-cogs"></i> Working Explanation</h3>
+        <p>${esc(p.workingExplanation)}</p>
+      </div>
     </div>`;
-  navigateTo('detail');
-  observeReveals();
+
+  const modal = $('projectModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
-/* ══════════════════ NAVIGATION ══════════════════ */
-const VIEWS = { home:'homeView', detail:'detailView', lab:'labView', about:'aboutView', contact:'contactView' };
+function closeModal() {
+  $('projectModal').classList.remove('open');
+  document.body.style.overflow = '';
+  $('projectDetailContent').innerHTML = '';
+}
 
-function navigateTo(name) {
-  Object.values(VIEWS).forEach(id => $(id)?.classList.remove('active-view'));
-  $(VIEWS[name])?.classList.add('active-view');
-
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    const nav = a.getAttribute('data-nav');
-    a.classList.toggle('active', nav === name || (name === 'detail' && nav === 'home'));
+function setupModal() {
+  $('modalCloseBtn')?.addEventListener('click', closeModal);
+  $('projectModal')?.addEventListener('click', e => {
+    if (e.target === $('projectModal')) closeModal();
   });
-
-  const hero = $('heroSection');
-  if (hero) hero.style.display = name === 'home' ? '' : 'none';
-
-  document.querySelectorAll(`#${VIEWS[name]} .scroll-reveal`).forEach(el => el.classList.remove('revealed'));
-
-  if (name === 'home') renderHomeGrid($('searchInput')?.value || '');
-  if (name === 'lab')  { initRobot(); initParticleField(); }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  setTimeout(observeReveals, 50);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
 }
 
 /* ══════════════════ SEARCH ══════════════════ */
 function setupSearch() {
-  const input = $('searchInput'); if (!input) return;
+  const input = $('searchInput');
+  if (!input) return;
   let t;
-  input.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => renderHomeGrid(input.value), 220); });
+  input.addEventListener('input', () => {
+    clearTimeout(t);
+    t = setTimeout(() => renderHomeGrid(input.value), 220);
+  });
 }
 
 /* ══════════════════ CONTACT ══════════════════ */
@@ -177,7 +234,7 @@ function setupContact() {
   $('contactForm')?.addEventListener('submit', e => {
     e.preventDefault();
     const name = $('contactName').value.trim();
-    const msg = $('contactMsg').value.trim();
+    const msg  = $('contactMsg').value.trim();
     if (!name || !msg) return;
     const text = `*SteelCircuits Contact*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Message:* ${encodeURIComponent(msg)}%0A%0A(From Robotics Showcase)`;
     window.open(`https://wa.me/917303177088?text=${text}`, '_blank');
@@ -186,253 +243,56 @@ function setupContact() {
   });
 }
 
-/* ══════════════════ ROBOT — CURSOR TRACKING ══════════════════ */
-let robotReady = false;
-function initRobot() {
-  if (robotReady) return; robotReady = true;
-  const svg = $('steelBot'), head = $('robotHead'), pL = $('pupilL'), pR = $('pupilR');
-  if (!svg || !head) return;
-  const PIVOT = { x: 110, y: 95 };
-  const EL = { x: 96, y: 50 }, ER = { x: 124, y: 50 };
-  const MAX_ROT = 12, MAX_PUP = 2.5;
-  let tR=0, cR=0, tPX=0, cPX=0, tPY=0, cPY=0;
+/* ══════════════════ STAT COUNTERS ══════════════════ */
+function setupStatCounters() {
+  const els = document.querySelectorAll('.stat-number[data-target]');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      obs.unobserve(entry.target);
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
 
-  function track(cx, cy) {
-    const r = svg.getBoundingClientRect();
-    if (!r.width) return;
-    const sx = ((cx - r.left) / r.width) * 220;
-    const sy = ((cy - r.top) / r.height) * 470;
-    const dx = sx - PIVOT.x, dy = sy - PIVOT.y;
-    const d = Math.sqrt(dx*dx + dy*dy) || 1;
-    tR  = Math.max(-MAX_ROT, Math.min(MAX_ROT, (dx / 110) * MAX_ROT));
-    tPX = (dx / d) * MAX_PUP;
-    tPY = (dy / d) * MAX_PUP;
-  }
-
-  addEventListener('mousemove', e => {
-    if (!$('labView').classList.contains('active-view')) return;
-    track(e.clientX, e.clientY);
-  });
-  addEventListener('touchmove', e => {
-    if (!$('labView').classList.contains('active-view')) return;
-    track(e.touches[0].clientX, e.touches[0].clientY);
-  }, { passive: true });
-
-  (function loop() {
-    cR += (tR - cR) * 0.08;
-    cPX += (tPX - cPX) * 0.12;
-    cPY += (tPY - cPY) * 0.12;
-    head.setAttribute('transform', `rotate(${cR.toFixed(2)}, ${PIVOT.x}, ${PIVOT.y})`);
-    pL.setAttribute('cx', (EL.x + cPX).toFixed(2));
-    pL.setAttribute('cy', (EL.y + cPY).toFixed(2));
-    pR.setAttribute('cx', (ER.x + cPX).toFixed(2));
-    pR.setAttribute('cy', (ER.y + cPY).toFixed(2));
-    requestAnimationFrame(loop);
-  })();
-}
-
-/* ══════════════════ AI MODEL (MobileNet) ══════════════════ */
-let mnModel=null, mnImage=null, tfLoading=false;
-const loadScript = src => new Promise((res, rej) => {
-  const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej;
-  document.head.appendChild(s);
-});
-
-function setupAI() {
-  const btn = $('aiPowerBtn'), st = $('aiStatus'), dz = $('aiDropZone'),
-        fi = $('aiFileInput'), pv = $('aiPreview'), cb = $('aiClassifyBtn');
-
-  btn?.addEventListener('click', () => {
-    if (tfLoading || mnModel) return;
-    tfLoading = true; btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> &nbsp;Loading TensorFlow.js…';
-    st.textContent = 'Fetching runtime (~3 MB)…';
-    loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js')
-      .then(() => { st.textContent = 'Loading MobileNet (~5 MB)…'; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> &nbsp;Loading MobileNet…'; return loadScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js'); })
-      .then(() => { st.textContent = 'Initialising neural network…'; return mobilenet.load({ version: 2, alpha: 1.0 }); })
-      .then(m => { mnModel = m; btn.style.display = 'none'; st.textContent = '✓ Neural network online — upload an image.'; dz.style.display = 'block'; })
-      .catch(() => { tfLoading = false; btn.disabled = false; btn.innerHTML = '<i class="fas fa-redo"></i> &nbsp;Retry'; st.textContent = 'Failed to load. Check connection.'; });
-  });
-
-  dz?.addEventListener('click', () => fi.click());
-  dz?.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
-  dz?.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
-  dz?.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); const f = e.dataTransfer.files[0]; if (f?.type.startsWith('image/')) loadImg(f); });
-  fi?.addEventListener('change', () => { if (fi.files[0]) loadImg(fi.files[0]); });
-
-  function loadImg(f) {
-    const r = new FileReader();
-    r.onload = e => { pv.src = e.target.result; pv.style.display = 'block'; pv.onload = () => { mnImage = pv; }; cb.style.display = 'block'; $('aiResults').innerHTML = ''; };
-    r.readAsDataURL(f);
-  }
-
-  cb?.addEventListener('click', () => {
-    if (!mnModel || !mnImage) return;
-    cb.disabled = true; cb.innerHTML = '<i class="fas fa-brain fa-spin"></i> &nbsp;Analysing…';
-    mnModel.classify(mnImage, 5).then(preds => {
-      cb.disabled = false; cb.innerHTML = '<i class="fas fa-microscope"></i> &nbsp;Analyse Again';
-      const res = $('aiResults');
-      res.innerHTML = preds.map((p, i) => `
-        <div class="ai-result-item">
-          <div class="ai-result-label">
-            <span class="ai-rank">#${i+1}</span>
-            <span class="ai-class">${p.className.split(',')[0]}</span>
-            <span class="ai-prob">${(p.probability*100).toFixed(1)}%</span>
-          </div>
-          <div class="ai-bar-track"><div class="ai-bar-fill" data-w="${(p.probability*100).toFixed(1)}"></div></div>
-        </div>`).join('');
-      requestAnimationFrame(() => { res.querySelectorAll('.ai-bar-fill').forEach(b => b.style.width = b.dataset.w + '%'); });
-    }).catch(() => { cb.disabled = false; cb.innerHTML = '<i class="fas fa-microscope"></i> &nbsp;Retry'; $('aiResults').innerHTML = '<p style="color:#f87171;font-size:0.82rem;">Analysis failed.</p>'; });
-  });
-}
-
-/* ══════════════════ PARTICLE FIELD ══════════════════ */
-let particlesReady = false;
-function initParticleField() {
-  if (particlesReady) return; particlesReady = true;
-  const cv = $('particleCanvas'); if (!cv) return;
-  const ctx = cv.getContext('2d');
-  const dpr = devicePixelRatio || 1;
-  let W, H, particles = [], mx = -9999, my = -9999;
-  const COUNT = 70, MAX_DIST = 95;
-
-  function resize() {
-    const r = cv.getBoundingClientRect();
-    W = r.width; H = r.height;
-    cv.width = W * dpr; cv.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function makeParticles() {
-    particles = [];
-    for (let i = 0; i < COUNT; i++) {
-      particles.push({
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: 1.2 + Math.random() * 1.6,
-        hue: Math.random() < 0.5 ? 'cyan' : 'purple'
-      });
-    }
-  }
-
-  resize(); makeParticles();
-  addEventListener('resize', () => { resize(); });
-
-  cv.addEventListener('mousemove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
-  cv.addEventListener('mouseleave', () => { mx = -9999; my = -9999; });
-  cv.addEventListener('touchmove', e => { const r = cv.getBoundingClientRect(); mx = e.touches[0].clientX - r.left; my = e.touches[0].clientY - r.top; }, { passive: true });
-
-  $('pfBurst').addEventListener('click', () => {
-    const cx = W/2, cy = H/2;
-    particles.forEach(p => {
-      const dx = p.x - cx, dy = p.y - cy;
-      const d = Math.sqrt(dx*dx + dy*dy) || 1;
-      p.vx += (dx/d) * 6; p.vy += (dy/d) * 6;
-    });
-  });
-  $('pfReset').addEventListener('click', makeParticles);
-
-  let frames = 0, lastTs = performance.now(), fps = 0, links = 0;
-  $('pfNodes').textContent = COUNT;
-
-  function step(ts) {
-    frames++;
-    if (ts - lastTs > 500) { fps = Math.round(frames * 1000 / (ts - lastTs)); $('pfFps').textContent = fps; frames = 0; lastTs = ts; }
-    ctx.clearRect(0, 0, W, H);
-
-    particles.forEach(p => {
-      p.x += p.vx; p.y += p.vy;
-      if (mx > -9000) {
-        const dx = mx - p.x, dy = my - p.y;
-        const d = Math.sqrt(dx*dx + dy*dy);
-        if (d < 110 && d > 0) { p.vx += (dx/d) * 0.06; p.vy += (dy/d) * 0.06; }
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
       }
-      p.vx *= 0.985; p.vy *= 0.985;
-      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      requestAnimationFrame(tick);
     });
+  }, { threshold: 0.6 });
 
-    links = 0;
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i+1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const d = Math.sqrt(dx*dx + dy*dy);
-        if (d < MAX_DIST) {
-          links++;
-          const a = (1 - d/MAX_DIST) * 0.55;
-          const grad = ctx.createLinearGradient(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
-          grad.addColorStop(0, particles[i].hue === 'cyan' ? `rgba(0,245,255,${a})` : `rgba(168,85,247,${a})`);
-          grad.addColorStop(1, particles[j].hue === 'cyan' ? `rgba(0,245,255,${a})` : `rgba(168,85,247,${a})`);
-          ctx.strokeStyle = grad; ctx.lineWidth = 0.6;
-          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
-        }
-      }
-    }
-    $('pfLinks').textContent = links;
-
-    particles.forEach(p => {
-      ctx.fillStyle = p.hue === 'cyan' ? '#00f5ff' : '#a855f7';
-      ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 8;
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
-    });
-    ctx.shadowBlur = 0;
-
-    requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+  els.forEach(el => obs.observe(el));
 }
 
-/* ══════════════════ CYBER ORACLE ══════════════════ */
-const POS = ['love','great','amazing','awesome','cool','excellent','fantastic','wonderful','happy','joy','perfect','beautiful','best','win','victory','achieve','brilliant','smart','genius','innovative','impressive','proud','enjoy','like','good','nice','glad','delighted','sweet','adore','wow','yay','epic','outstanding','superb','marvellous','marvelous','positive','thanks','thank','grateful','appreciate'];
-const NEG = ['hate','bad','terrible','awful','horrible','sad','angry','mad','worst','fail','lose','broken','wrong','disappointed','frustrated','annoying','stupid','dumb','poor','ugly','dislike','boring','tired','sick','pain','painful','hurt','useless','garbage','trash','no','never','cannot',"can't",'fear','afraid','sorry'];
-const EMO = {
-  '⚡ EXCITEMENT':  ['excited','thrilled','amazing','incredible','wow','awesome','epic','yay'],
-  '🔥 ANGER':      ['angry','mad','furious','rage','hate','annoyed','frustrated','pissed'],
-  '💙 JOY':        ['happy','joy','celebrate','smile','laugh','delight','glad','cheerful','enjoy'],
-  '⚠ FEAR':        ['scared','afraid','fear','terrified','worried','anxious','nervous','panic'],
-  '✦ SURPRISE':    ['wow','surprise','unexpected','shock','astonished','amazed','sudden'],
-  '🌑 SADNESS':    ['sad','depressed','unhappy','miserable','cry','grief','sorrow','lonely','tired'],
-  '💜 LOVE':       ['love','adore','romantic','sweetheart','cherish','passion','heart']
-};
-
-function setupOracle() {
-  $('oracleBtn')?.addEventListener('click', () => {
-    const text = $('oracleInput').value.trim();
-    if (!text) return;
-    const words = text.toLowerCase().split(/\W+/).filter(Boolean);
-    let pos = 0, neg = 0;
-    words.forEach(w => { if (POS.includes(w)) pos++; if (NEG.includes(w)) neg++; });
-    let emo = '⚙ NEUTRAL', max = 0;
-    Object.entries(EMO).forEach(([k, arr]) => { const s = arr.filter(x => words.includes(x)).length; if (s > max) { max = s; emo = k; } });
-
-    const total = pos - neg;
-    let sentiment, color;
-    if (total > 1) { sentiment = 'POSITIVE'; color = '#00f5ff'; }
-    else if (total < -1) { sentiment = 'NEGATIVE'; color = '#f87171'; }
-    else { sentiment = 'NEUTRAL'; color = '#a855f7'; }
-
-    const meter = Math.min(98, Math.max(2, 50 + total * 7));
-    const energy = Math.min(100, Math.round(((pos+neg) / Math.max(1, words.length)) * 250)) + '%';
-
-    $('orcSentiment').textContent = sentiment;
-    $('orcSentiment').style.color = color;
-    $('orcEmotion').textContent = emo;
-    $('orcEnergy').textContent = energy;
-    $('orcWords').textContent = words.length;
-    $('orcMeter').style.width = meter + '%';
-
-    $('oracleResult').classList.add('visible');
+/* ══════════════════ SMOOTH ANCHOR SCROLL ══════════════════ */
+function setupSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
   });
 }
 
 /* ══════════════════ INIT ══════════════════ */
 function init() {
-  document.querySelectorAll('[data-nav]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); navigateTo(el.getAttribute('data-nav')); }));
-  $('backHomeBtn')?.addEventListener('click', () => navigateTo('home'));
-  setupSearch(); setupContact(); setupAI(); setupOracle();
   renderHomeGrid();
+  setupSearch();
+  setupContact();
+  setupModal();
+  setupMobileNav();
+  setupActiveNav();
+  setupStatCounters();
+  setupSmoothScroll();
   observeReveals();
 }
 init();
