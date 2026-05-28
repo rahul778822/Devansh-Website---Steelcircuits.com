@@ -13,7 +13,7 @@
 (function initAITwin() {
 
   /* ─── CONFIG — edit these ─────────────────────────────── */
-  const HF_API_URL = 'https://YOUR-USERNAME-YOUR-SPACE.hf.space/api/chat';
+  const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
   // OR for HF Inference API: 'https://api-inference.huggingface.co/models/YOUR-MODEL'
 
   const HF_TOKEN = '';          // Optional: leave empty if your Space is public
@@ -216,18 +216,12 @@ Keep answers concise, enthusiastic, and technical. Speak in first person as an e
         { message, history, system }
   ─────────────────────────────────────────────────────────── */
   function buildPayload(userMessage) {
-    // Schema A — HF Inference API / OpenAI-compatible
+
     return {
-      model: 'tiiuae/falcon-7b-instruct',   // ← swap your model here
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...history,
-        { role: 'user', content: userMessage }
-      ],
-      max_new_tokens: 400,
-      temperature: 0.7,
+        message: userMessage
     };
-  }
+
+}
 
   /* ─── Parse response from HF ───────────────────────────────
      Adjust this to match what your endpoint returns.
