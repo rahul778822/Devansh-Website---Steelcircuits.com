@@ -227,18 +227,10 @@ Keep answers concise, enthusiastic, and technical. Speak in first person as an e
      Adjust this to match what your endpoint returns.
   ─────────────────────────────────────────────────────────── */
   function parseResponse(data) {
-    // Schema A — HF Inference API
-    if (data?.choices?.[0]?.message?.content) {
-      return data.choices[0].message.content.trim();
-    }
-    // Schema B — plain generated_text
-    if (data?.generated_text) return data.generated_text.trim();
-    if (Array.isArray(data) && data[0]?.generated_text) return data[0].generated_text.trim();
-    // Schema C — Gradio Space
-    if (data?.data?.[0]) return String(data.data[0]).trim();
-    // Fallback
-    return 'Hmm, I received an unexpected response format. Check the console for details.';
-  }
+
+    return data.reply || "No response.";
+
+}
 
   /* ─── Send request to Hugging Face ────────────────────────── */
   async function fetchHF(userMessage) {
