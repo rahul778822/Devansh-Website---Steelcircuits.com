@@ -91,18 +91,7 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
 
 .logo { cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 0.9rem; }
 
-.logo-img {
-  width: 54px; height: 54px; object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid rgba(0,245,255,0.4);
-  filter: drop-shadow(0 0 10px rgba(0,245,255,0.5));
-  transition: border-color 0.3s, filter 0.3s, transform 0.3s;
-}
-.logo:hover .logo-img {
-  border-color: rgba(168,85,247,0.7);
-  filter: drop-shadow(0 0 16px rgba(168,85,247,0.6));
-  transform: rotate(8deg) scale(1.06);
-}
+
 .logo-copy { display: flex; flex-direction: column; }
 .logo-text {
   font-family: 'Orbitron', monospace; font-weight: 900;
@@ -659,7 +648,6 @@ footer {
   .detail-title { font-size: 1.4rem; }
   .contact-info p { font-size: 0.85rem; }
   .logo { justify-content: flex-start; }
-  .logo-img { width: 44px; height: 44px; }
   .logo-text { font-size: 1.3rem; letter-spacing: 2px; }
   .logo-tagline { font-size: 0.52rem; }
   .wa-banner { font-size: 0.72rem; padding: 0.75rem 1.2rem; }
@@ -698,7 +686,6 @@ footer {
   <header class="site-header" id="siteHeader">
     <div class="nav-container">
       <a href="#hero" class="logo">
-        <img src="logo.png" alt="SteelCircuits Logo" class="logo-img" onerror="this.style.display='none'">
         <div class="logo-copy">
           <div class="logo-text">STEELCIRCUITS</div>
           <div class="logo-tagline">ROBOTICS · AUTOMATION · INNOVATION</div>
