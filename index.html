@@ -89,22 +89,6 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
   justify-content: space-between; align-items: center; gap: 1rem;
 }
 
-.logo { cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 0.9rem; }
-
-
-.logo-copy { display: flex; flex-direction: column; }
-.logo-text {
-  font-family: 'Orbitron', monospace; font-weight: 900;
-  font-size: 1.85rem; letter-spacing: 4px;
-  background: linear-gradient(135deg, #ffffff, #00f5ff, #a855f7);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.logo-tagline {
-  font-family: 'Orbitron', monospace; font-size: 0.62rem;
-  letter-spacing: 3px; color: #a855f7; margin-top: 2px;
-  text-shadow: 0 0 6px #a855f7;
-}
-
 .nav-links { display: flex; gap: 1.8rem; flex-wrap: wrap; }
 .nav-link {
   color: #b0ccee; text-decoration: none;
@@ -647,9 +631,7 @@ footer {
   .about-top { flex-direction: column; }
   .detail-title { font-size: 1.4rem; }
   .contact-info p { font-size: 0.85rem; }
-  .logo { justify-content: flex-start; }
-  .logo-text { font-size: 1.3rem; letter-spacing: 2px; }
-  .logo-tagline { font-size: 0.52rem; }
+
   .wa-banner { font-size: 0.72rem; padding: 0.75rem 1.2rem; }
   .modal-content { padding: 1.8rem 1.2rem; }
   .builder-name { font-size: clamp(3.2rem, 18vw, 5rem); letter-spacing: 3px; }
@@ -685,12 +667,7 @@ footer {
 
   <header class="site-header" id="siteHeader">
     <div class="nav-container">
-      <a href="#hero" class="logo">
-        <div class="logo-copy">
-          <div class="logo-text">STEELCIRCUITS</div>
-          <div class="logo-tagline">ROBOTICS · AUTOMATION · INNOVATION</div>
-        </div>
-      </a>
+
       <nav class="nav-links" id="navLinks">
         <a href="#projects" class="nav-link"><i class="fas fa-microchip"></i> Projects</a>
         <a href="#about" class="nav-link"><i class="fas fa-user-astronaut"></i> About</a>
