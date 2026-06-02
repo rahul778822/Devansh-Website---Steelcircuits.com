@@ -89,6 +89,24 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
   justify-content: space-between; align-items: center; gap: 1rem;
 }
 
+.site-brand {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-decoration: none;
+  background: linear-gradient(90deg, #00f5ff, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: 0.22s;
+  flex-shrink: 0;
+}
+.site-brand:hover {
+  filter: brightness(1.3);
+  text-shadow: 0 0 14px rgba(0,245,255,0.5);
+}
+
 .nav-links { display: flex; gap: 1.8rem; flex-wrap: wrap; }
 .nav-link {
   color: #b0ccee; text-decoration: none;
@@ -160,6 +178,30 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
   margin-bottom: 2rem;
   position: relative;
   z-index: 2;
+}
+
+.brand-master-heading {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: 12px;
+  line-height: 1;
+  margin-bottom: 1.8rem;
+  text-align: center;
+  background: linear-gradient(135deg, #00f5ff 0%, #a855f7 40%, #ec4899 70%, #00f5ff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brandShimmer 4s linear infinite;
+  filter: drop-shadow(0 0 40px rgba(168,85,247,0.3));
+  text-shadow:
+    0 0 80px rgba(0,245,255,0.08),
+    0 0 160px rgba(168,85,247,0.05);
+}
+@keyframes brandShimmer {
+  0%,100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 .name-badge-pill {
@@ -634,6 +676,7 @@ footer {
 
   .wa-banner { font-size: 0.72rem; padding: 0.75rem 1.2rem; }
   .modal-content { padding: 1.8rem 1.2rem; }
+  .brand-master-heading { font-size: clamp(1.6rem, 12vw, 2.8rem); letter-spacing: 8px; }
   .builder-name { font-size: clamp(3.2rem, 18vw, 5rem); letter-spacing: 3px; }
   .builder-name-underline { width: 170px; }
   .name-badge-text { font-size: 0.55rem; letter-spacing: 2px; }
@@ -641,6 +684,7 @@ footer {
 @media (max-width: 480px) {
   .about-stats { grid-template-columns: repeat(2, 1fr); }
   .hero { padding: 3rem 1.2rem 3rem; }
+  .brand-master-heading { font-size: clamp(1.4rem, 14vw, 2rem); letter-spacing: 5px; }
   .builder-name { font-size: clamp(2.8rem, 20vw, 4rem); letter-spacing: 2px; }
 }
 
@@ -668,6 +712,8 @@ footer {
   <header class="site-header" id="siteHeader">
     <div class="nav-container">
 
+      <a href="#hero" class="site-brand">STEELCIRCUITS</a>
+
       <nav class="nav-links" id="navLinks">
         <a href="#projects" class="nav-link"><i class="fas fa-microchip"></i> Projects</a>
         <a href="#about" class="nav-link"><i class="fas fa-user-astronaut"></i> About</a>
@@ -681,6 +727,7 @@ footer {
 
   <section class="hero" id="hero">
     <div class="name-identity-wrap scroll-reveal">
+      <div class="brand-master-heading">STEELCIRCUITS</div>
       <div class="name-badge-pill">
         <span class="name-dot"></span>
         <span class="name-badge-text">Builder · Creator · Engineer</span>
