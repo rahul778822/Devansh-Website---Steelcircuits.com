@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="ai-twin-addon.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
 /* ─────────────────── RESET & BASE ─────────────────── */
@@ -327,6 +326,181 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
 @keyframes gradShift { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
 .section-sub { color: #5a7a9a; font-size: 0.95rem; font-family: 'Orbitron', monospace; letter-spacing: 2px; }
 
+/* ─────────────────── AI TWIN CHAT SECTION ─────────────────── */
+.ai-twin-chat-container { max-width: 740px; margin: 0 auto; }
+.ai-twin-chat-panel {
+  background: rgba(4,9,20,0.97);
+  border: 1px solid rgba(168,85,247,0.35);
+  border-radius: 1.8rem;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 40px rgba(168,85,247,0.12), inset 0 1px 0 rgba(255,255,255,0.04);
+  display: flex; flex-direction: column;
+}
+.ai-twin-chat-header {
+  position: relative;
+  padding: 1.2rem 1.4rem 1rem;
+  background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(0,245,255,0.08));
+  border-bottom: 1px solid rgba(168,85,247,0.2);
+  display: flex; align-items: center; gap: 0.85rem;
+  flex-shrink: 0;
+}
+.ai-twin-chat-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #00f5ff);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(0,245,255,0.35);
+}
+.ai-twin-chat-avatar svg { width: 24px; height: 24px; fill: #fff; }
+.ai-twin-chat-header-text { flex: 1; }
+.ai-twin-chat-name {
+  font-family: 'Orbitron', monospace; font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #fff, #00f5ff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  line-height: 1.3;
+}
+.ai-twin-chat-status {
+  font-size: 0.68rem; color: #4ade80; letter-spacing: 1px;
+  display: flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ai-twin-chat-status::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: #4ade80; box-shadow: 0 0 6px #4ade80;
+  display: inline-block; animation: twinStatusPulse 2s ease-in-out infinite;
+}
+@keyframes twinStatusPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.ai-twin-chat-messages {
+  flex: 1; overflow-y: auto;
+  padding: 1.2rem 1.2rem 0.5rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+  scroll-behavior: smooth; min-height: 300px; max-height: 420px;
+}
+.ai-twin-chat-messages::-webkit-scrollbar { width: 4px; }
+.ai-twin-chat-messages::-webkit-scrollbar-track { background: transparent; }
+.ai-twin-chat-messages::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.35); border-radius: 4px; }
+.ai-twin-chat-msg { max-width: 82%; display: flex; flex-direction: column; gap: 3px; }
+.ai-twin-chat-msg.bot { align-self: flex-start; }
+.ai-twin-chat-msg.user { align-self: flex-end; }
+.ai-twin-chat-bubble {
+  padding: 0.65rem 0.95rem; border-radius: 1.1rem;
+  font-size: 0.86rem; line-height: 1.6; word-break: break-word;
+}
+.ai-twin-chat-msg.bot .ai-twin-chat-bubble {
+  background: rgba(168,85,247,0.1);
+  border: 1px solid rgba(168,85,247,0.22);
+  border-bottom-left-radius: 0.3rem; color: #c4d9f5;
+}
+.ai-twin-chat-msg.user .ai-twin-chat-bubble {
+  background: linear-gradient(135deg, rgba(124,58,237,0.35), rgba(0,245,255,0.15));
+  border: 1px solid rgba(0,245,255,0.25);
+  border-bottom-right-radius: 0.3rem; color: #e2eeff;
+}
+.ai-twin-chat-ts {
+  font-size: 0.6rem; color: #3d5a80; letter-spacing: 0.5px; padding: 0 0.3rem;
+}
+.ai-twin-chat-msg.user .ai-twin-chat-ts { text-align: right; }
+.ai-twin-chat-suggestions {
+  padding: 0.5rem 1.2rem 0.7rem;
+  display: flex; gap: 0.5rem; overflow-x: auto;
+  flex-shrink: 0; scrollbar-width: none;
+}
+.ai-twin-chat-suggestions::-webkit-scrollbar { display: none; }
+.ai-twin-chat-chip {
+  white-space: nowrap; font-size: 0.7rem;
+  font-family: 'Orbitron', monospace; letter-spacing: 0.5px;
+  padding: 0.35rem 0.85rem; border-radius: 2rem;
+  background: rgba(0,245,255,0.06);
+  border: 1px solid rgba(0,245,255,0.2);
+  color: #7aa8cc; cursor: pointer; transition: 0.2s; flex-shrink: 0;
+}
+.ai-twin-chat-chip:hover {
+  background: rgba(0,245,255,0.14);
+  border-color: #00f5ff; color: #00f5ff;
+}
+.ai-twin-chat-input-row {
+  padding: 0.7rem 1rem 0.9rem;
+  display: flex; gap: 0.6rem; align-items: flex-end;
+  border-top: 1px solid rgba(168,85,247,0.15);
+  background: rgba(2,5,16,0.6); flex-shrink: 0;
+}
+.ai-twin-chat-input {
+  flex: 1; background: rgba(6,11,26,0.9);
+  border: 1px solid rgba(168,85,247,0.25);
+  border-radius: 1.2rem; padding: 0.6rem 1rem;
+  color: #e2eeff; font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; resize: none; max-height: 100px;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.5; overflow-y: auto;
+}
+.ai-twin-chat-input::placeholder { color: #3d5a80; }
+.ai-twin-chat-input:focus { border-color: #a855f7; box-shadow: 0 0 10px rgba(168,85,247,0.2); }
+.ai-twin-chat-send {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #00f5ff);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; padding: 0; transition: 0.22s;
+}
+.ai-twin-chat-send:hover {
+  transform: scale(1.08) rotate(-8deg);
+  box-shadow: 0 0 18px rgba(0,245,255,0.4);
+  background: linear-gradient(135deg, #a855f7, #00f5ff);
+}
+.ai-twin-chat-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.ai-twin-chat-send svg { width: 17px; height: 17px; fill: #fff; transform: translateX(1px); }
+.ai-twin-chat-error {
+  font-size: 0.75rem; color: #f87171; text-align: center;
+  padding: 0.3rem 0.5rem; background: rgba(248,113,113,0.08);
+  border-radius: 0.6rem; border: 1px solid rgba(248,113,113,0.15);
+  margin: 0 1rem;
+}
+.typing-indicator {
+  display: flex; gap: 5px; align-items: center;
+  padding: 0.65rem 0.95rem;
+  background: rgba(168,85,247,0.1);
+  border: 1px solid rgba(168,85,247,0.22);
+  border-radius: 1.1rem; border-bottom-left-radius: 0.3rem;
+  width: fit-content;
+}
+.typing-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #a855f7;
+}
+.typing-dot:nth-child(1) { animation: typingBounce 1.2s ease-in-out 0s infinite; }
+.typing-dot:nth-child(2) { animation: typingBounce 1.2s ease-in-out 0.2s infinite; }
+.typing-dot:nth-child(3) { animation: typingBounce 1.2s ease-in-out 0.4s infinite; }
+@keyframes typingBounce {
+  0%,80%,100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-6px); opacity: 1; background: #00f5ff; }
+}
+
+/* ─────────────────── AI TWIN TRIGGER STYLES ─────────────────── */
+#aitwin-trigger {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #00f5ff);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 24px rgba(0,245,255,0.4), 0 0 48px rgba(168,85,247,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 0; animation: twinPulse 3s ease-in-out infinite;
+}
+#aitwin-trigger:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 36px rgba(0,245,255,0.6), 0 0 64px rgba(168,85,247,0.4);
+}
+#aitwin-trigger svg { width: 28px; height: 28px; fill: #fff; }
+@keyframes twinPulse {
+  0%,100% { box-shadow: 0 0 24px rgba(0,245,255,0.4), 0 0 48px rgba(168,85,247,0.25); }
+  50% { box-shadow: 0 0 40px rgba(0,245,255,0.65), 0 0 70px rgba(168,85,247,0.45); }
+}
+#aitwin-trigger .notif-dot {
+  position: absolute; top: 4px; right: 4px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #00f5ff; border: 2px solid #020508;
+  animation: dotBlink 2s ease-in-out infinite;
+}
+@keyframes dotBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
 /* ─────────────────── AI TWIN FLOATING TRIGGER + TAGLINE ─────────────────── */
 #aitwin-floating-wrap {
   position: fixed;
@@ -359,6 +533,9 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
 @media (max-width: 480px) {
   #aitwin-floating-wrap { bottom: 1.2rem; right: 1.2rem; }
   .aitwin-tagline { font-size: 0.6rem; padding: 0.3rem 0.7rem; }
+}
+#aitwin-floating-wrap #aitwin-trigger {
+  position: relative; bottom: auto; right: auto;
 }
 
 /* ─────────────────── SEARCH ─────────────────── */
@@ -754,7 +931,7 @@ footer {
         <a href="#projects" class="nav-link"><i class="fas fa-microchip"></i> Projects</a>
         <a href="#about" class="nav-link"><i class="fas fa-user-astronaut"></i> About</a>
         <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-        <a href="ai-twin.html" class="nav-link"><i class="fas fa-robot"></i> AI Twin</a>
+        <a href="#ai-twin" class="nav-link"><i class="fas fa-robot"></i> AI Twin</a>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -932,6 +1109,40 @@ footer {
       <p style="margin-top:1rem;font-size:0.78rem;color:#3d5a80;">
         * Your message will be pre-filled in WhatsApp for +91 7303177088. Just hit send.
       </p>
+    </div>
+  </section>
+
+  <!-- ─── AI TWIN SECTION ─── -->
+  <section class="page-section" id="ai-twin">
+    <div class="section-header scroll-reveal">
+      <p class="section-eyebrow">&#11042; AI TWIN &#11042;</p>
+      <h2 class="section-title">Chat with Circuit-X</h2>
+      <p class="section-sub">Ask me anything about Devansh's robotics projects, embedded systems, or SteelCircuits. I'm his AI twin — wired to answer.</p>
+    </div>
+    <div class="ai-twin-chat-container scroll-reveal">
+      <div class="ai-twin-chat-panel">
+        <div class="ai-twin-chat-header">
+          <div class="ai-twin-chat-avatar">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
+            </svg>
+          </div>
+          <div class="ai-twin-chat-header-text">
+            <div class="ai-twin-chat-name">CIRCUIT-X</div>
+            <div class="ai-twin-chat-status">ONLINE</div>
+          </div>
+        </div>
+        <div class="ai-twin-chat-messages" id="twinMessages"></div>
+        <div class="ai-twin-chat-suggestions" id="twinSuggestions"></div>
+        <div class="ai-twin-chat-input-row">
+          <textarea class="ai-twin-chat-input" id="twinInput" placeholder="Ask Circuit-X anything…" rows="1" aria-label="Message input"></textarea>
+          <button class="ai-twin-chat-send" id="twinSend" aria-label="Send message">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1239,12 +1450,125 @@ function init() {
 }
 init();
 
+/* ══════════════════ AI TWIN CHAT ══════════════════ */
+(function initAITwinChat() {
+  const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
+  const BOT_NAME = 'CIRCUIT-X';
+  const SUGGESTIONS = [
+    '⚡ What projects have you built?',
+    '🤖 How does the eye-controlled car work?',
+    '📡 Tell me about your maze solver',
+    '🔧 What hardware do you use?',
+  ];
+
+  const messagesEl = document.getElementById('twinMessages');
+  const inputEl = document.getElementById('twinInput');
+  const sendBtn = document.getElementById('twinSend');
+  const sugBox = document.getElementById('twinSuggestions');
+  if (!messagesEl) return;
+
+  let isLoading = false;
+  let history = [];
+
+  function getTime() { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+  function esc(s) { return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function scrollBottom() { messagesEl.scrollTop = messagesEl.scrollHeight; }
+
+  function addMsg(cls, prefix, text) {
+    const d = document.createElement('div');
+    d.className = 'ai-twin-chat-msg ' + cls;
+    d.innerHTML = `<div class="ai-twin-chat-bubble">${esc(text)}</div><div class="ai-twin-chat-ts">${prefix} · ${getTime()}</div>`;
+    messagesEl.appendChild(d);
+    scrollBottom();
+  }
+
+  function addTyping() {
+    const d = document.createElement('div');
+    d.className = 'ai-twin-chat-msg bot';
+    d.id = 'twinTyping';
+    d.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+    messagesEl.appendChild(d);
+    scrollBottom();
+  }
+
+  function removeTyping() { const el = document.getElementById('twinTyping'); if (el) el.remove(); }
+
+  function addError(msg) {
+    const d = document.createElement('div');
+    d.className = 'ai-twin-chat-error';
+    d.textContent = msg;
+    messagesEl.appendChild(d);
+    scrollBottom();
+  }
+
+  function renderSuggestions() {
+    sugBox.innerHTML = SUGGESTIONS.map(s => `<button class="ai-twin-chat-chip">${s}</button>`).join('');
+    sugBox.querySelectorAll('.ai-twin-chat-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const text = chip.innerText.replace(/^[⚡🤖📡🔧]\s/, '');
+        submitMessage(text);
+        sugBox.innerHTML = '';
+      });
+    });
+  }
+
+  async function submitMessage(text) {
+    const msg = text.trim();
+    if (!msg || isLoading) return;
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+    sugBox.innerHTML = '';
+
+    addMsg('user', 'You', msg);
+    history.push({ role: 'user', content: msg });
+
+    isLoading = true;
+    sendBtn.disabled = true;
+    addTyping();
+
+    try {
+      const r = await fetch(HF_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg }),
+      });
+      removeTyping();
+      if (!r.ok) throw new Error(`API ${r.status}: ${(await r.text()).slice(0,120)}`);
+      const data = await r.json();
+      const reply = data.reply || 'No response.';
+      addMsg('bot', BOT_NAME, reply);
+      history.push({ role: 'assistant', content: reply });
+      if (history.length > 20) history = history.slice(-20);
+    } catch (err) {
+      removeTyping();
+      console.error('[Circuit-X]', err);
+      addError('⚠️ Could not reach Circuit-X.');
+    }
+
+    isLoading = false;
+    sendBtn.disabled = false;
+    inputEl.focus();
+  }
+
+  addMsg('bot', BOT_NAME, `Hey! I'm ${BOT_NAME} — Devansh's AI twin. Ask me anything about his robotics projects, skills, or SteelCircuits. ⚡`);
+  renderSuggestions();
+
+  sendBtn.addEventListener('click', () => submitMessage(inputEl.value));
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitMessage(inputEl.value); }
+  });
+  inputEl.addEventListener('input', () => {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 100) + 'px';
+  });
+})();
+
   </script>
 
   <!-- AI TWIN FLOATING TRIGGER + TAGLINE -->
   <div id="aitwin-floating-wrap">
     <div class="aitwin-tagline">want to talk with me?</div>
-    <a href="ai-twin.html" id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
+    <a href="#ai-twin" id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
       <span class="notif-dot"></span>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
