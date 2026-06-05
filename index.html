@@ -327,6 +327,40 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
 @keyframes gradShift { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
 .section-sub { color: #5a7a9a; font-size: 0.95rem; font-family: 'Orbitron', monospace; letter-spacing: 2px; }
 
+/* ─────────────────── AI TWIN FLOATING TRIGGER + TAGLINE ─────────────────── */
+#aitwin-floating-wrap {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.aitwin-tagline {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  color: #00f5ff;
+  background: rgba(2,5,16,0.85);
+  border: 1px solid rgba(0,245,255,0.25);
+  padding: 0.4rem 0.9rem;
+  border-radius: 2rem;
+  white-space: nowrap;
+  box-shadow: 0 0 16px rgba(0,245,255,0.15);
+  animation: taglineGlow 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes taglineGlow {
+  0%,100% { box-shadow: 0 0 16px rgba(0,245,255,0.15); }
+  50% { box-shadow: 0 0 28px rgba(0,245,255,0.35); }
+}
+@media (max-width: 480px) {
+  #aitwin-floating-wrap { bottom: 1.2rem; right: 1.2rem; }
+  .aitwin-tagline { font-size: 0.6rem; padding: 0.3rem 0.7rem; }
+}
+
 /* ─────────────────── SEARCH ─────────────────── */
 .projects-toolbar { margin-bottom: 1rem; }
 .project-badge {
@@ -720,6 +754,7 @@ footer {
         <a href="#projects" class="nav-link"><i class="fas fa-microchip"></i> Projects</a>
         <a href="#about" class="nav-link"><i class="fas fa-user-astronaut"></i> About</a>
         <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="ai-twin.html" class="nav-link"><i class="fas fa-robot"></i> AI Twin</a>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -1206,7 +1241,16 @@ init();
 
   </script>
 
-  <script src="ai-twin-addon.js"></script>
+  <!-- AI TWIN FLOATING TRIGGER + TAGLINE -->
+  <div id="aitwin-floating-wrap">
+    <div class="aitwin-tagline">want to talk with me?</div>
+    <a href="ai-twin.html" id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
+      <span class="notif-dot"></span>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
+      </svg>
+    </a>
+  </div>
 
 <!-- DEVELOPER AGENT TEST SUCCESSFUL -->
 </body>
