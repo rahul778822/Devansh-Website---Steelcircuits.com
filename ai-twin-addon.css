@@ -1,0 +1,96 @@
+/* ═══════════════════════════════════════════
+   AI TWIN — CIRCUIT-X CHAT WIDGET
+   Inline mode overrides for grid section
+════════════════════════════════════════════ */
+
+/* ── Floating trigger button ── */
+#aitwin-trigger {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 8000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #00f5ff);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(0,245,255,0.4), 0 0 48px rgba(168,85,247,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 0;
+  animation: twinPulse 3s ease-in-out infinite;
+}
+#aitwin-trigger:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 36px rgba(0,245,255,0.6), 0 0 64px rgba(168,85,247,0.4);
+}
+#aitwin-trigger svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+@keyframes twinPulse {
+  0%,100% { box-shadow: 0 0 24px rgba(0,245,255,0.4), 0 0 48px rgba(168,85,247,0.25); }
+  50%      { box-shadow: 0 0 40px rgba(0,245,255,0.65), 0 0 70px rgba(168,85,247,0.45); }
+}
+
+/* Notification dot */
+#aitwin-trigger .notif-dot {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #00f5ff;
+  border: 2px solid #020508;
+  animation: dotBlink 2s ease-in-out infinite;
+}
+@keyframes dotBlink {
+  0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+}
+
+/* ── Chat panel ── */
+#aitwin-panel {
+  position: fixed;
+  bottom: 6rem;
+  right: 2rem;
+  z-index: 8001;
+  width: 380px;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(4,9,20,0.97);
+  border: 1px solid rgba(168,85,247,0.35);
+  border-radius: 1.8rem;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 40px rgba(168,85,247,0.12), inset 0 1px 0 rgba(255,255,255,0.04);
+  transform: translateY(20px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease;
+}
+#aitwin-panel.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Inline mode (inside grid section card) ── */
+.ai-twin-card #aitwin-trigger {
+  position: relative;
+  bottom: auto;
+  right: auto;
+  animation: none;
+  margin-bottom: 1rem;
+}
+
+.ai-twin-card #aitwin-panel {
+  position: relative;
+  bottom: auto;
+  right: auto;
+  width: 100%;
+  max-height: 450px;
+  transform: none;
+}

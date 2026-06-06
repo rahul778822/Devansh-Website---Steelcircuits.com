@@ -162,7 +162,7 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
   align-items: start;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 760px) {
   .aitwin-dual-layout {
     grid-template-columns: 1fr;
   }
@@ -606,7 +606,7 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
         <a href="#projects" class="nav-link"><i class="fas fa-microchip"></i> Projects</a>
         <a href="#about" class="nav-link"><i class="fas fa-user-astronaut"></i> About</a>
         <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-        <a href="#ai-twin" class="nav-link"><i class="fas fa-robot"></i> AI Twin</a>
+        <a href="#spline-ai" class="nav-link"><i class="fas fa-cube"></i> AI + Bot</a>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -638,36 +638,36 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
     </a>
   </section>
 
-  <section class="page-section" id="projects">
+  <!-- ─── AI TWIN + 3D BOT SECTION ─── -->
+  <section class="page-section" id="spline-ai">
     <div class="section-header scroll-reveal">
-      <p class="section-eyebrow">&#11042; MY BUILDS &#11042;</p>
-      <h2 class="section-title">Featured Live Builds</h2>
-      <p class="section-sub">Real machines. Real code. Real results.</p>
-    </div>
-    <div class="projects-toolbar scroll-reveal" data-delay="1">
-      <span id="projectCount" class="project-badge"></span>
-    </div>
-    <div class="search-wrapper scroll-reveal" data-delay="2">
-      <i class="fas fa-search"></i>
-      <input type="text" id="searchInput" placeholder="Search projects by name, keyword, or component…" autocomplete="off">
-    </div>
-    <div id="videoGridContainer" class="video-grid"></div>
-    <div class="no-results" id="noResults">
-      <i class="fas fa-satellite-dish"></i> No projects found for "<span id="noResultsQuery"></span>"
-    </div>
-  </section>
-
-  <!-- ─── AI TWIN + 3D ROBOT SECTION ─── -->
-  <section class="page-section" id="ai-twin">
-    <div class="section-header scroll-reveal">
-      <p class="section-eyebrow">&#11042; AI TWIN + LIVE 3D &#11042;</p>
-      <h2 class="section-title">Meet the Circuit Universe</h2>
-      <p class="section-sub">Chat with my AI twin. Interact with NEXBOT in 3D.</p>
+      <p class="section-eyebrow">INTERACTIVE</p>
+      <h2 class="section-title">AI Twin &amp; 3D Bot</h2>
     </div>
     <div class="aitwin-dual-layout">
 
-      <!-- LEFT: AI TWIN CHAT -->
-      <div class="ai-twin-chat-container scroll-reveal" data-delay="1">
+      <!-- LEFT: SPLINE 3D BOT -->
+      <div class="robot-3d-panel scroll-reveal" data-delay="1">
+        <div class="robot-3d-label">
+          <span class="robot-3d-label-dot"></span>
+          <span class="robot-3d-label-text">3D BOT · DRAG TO EXPLORE</span>
+        </div>
+        <div class="robot-3d-container">
+          <div class="robot-3d-corner-tl"></div>
+          <div class="robot-3d-corner-tr"></div>
+          <div class="robot-3d-corner-bl"></div>
+          <div class="robot-3d-corner-br"></div>
+          <iframe src="https://my.spline.design/untitled-c0cf685fb2fca0b12bbf3748d7922be5/"
+            frameborder="0" loading="lazy" allowfullscreen
+            style="width:100%;height:100%;border:none;border-radius:1.8rem;">
+          </iframe>
+          <div class="robot-3d-caption">☞ Interact with 3D Bot</div>
+        </div>
+        <p class="robot-3d-hint">☞ DRAG · ROTATE · EXPLORE IN 3D</p>
+      </div>
+
+      <!-- RIGHT: AI TWIN CHAT -->
+      <div class="ai-twin-chat-container scroll-reveal" data-delay="2">
         <div class="ai-twin-chat-panel">
           <div class="ai-twin-chat-header">
             <div class="ai-twin-chat-avatar">
@@ -693,27 +693,25 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
         </div>
       </div>
 
-      <!-- RIGHT: 3D ROBOT VIEWER -->
-      <div class="robot-3d-panel scroll-reveal" data-delay="2">
-        <div class="robot-3d-label">
-          <span class="robot-3d-label-dot"></span>
-          <span class="robot-3d-label-text">LIVE ROBOT · DRAG TO EXPLORE</span>
-        </div>
-        <div class="robot-3d-container">
-          <!-- corner bracket decorations -->
-          <div class="robot-3d-corner-tl"></div>
-          <div class="robot-3d-corner-tr"></div>
-          <div class="robot-3d-corner-bl"></div>
-          <div class="robot-3d-corner-br"></div>
-          <spline-viewer
-            url="https://prod.spline.design/Elv3bH-Eqa8dpw-5/scene.splinecode"
-            loading-anim-type="spinner-small-dark">
-          </spline-viewer>
-          <div class="robot-3d-caption">☞ Interact with NEXBOT</div>
-        </div>
-        <p class="robot-3d-hint">☞ DRAG · ROTATE · EXPLORE IN 3D</p>
-      </div>
+    </div>
+  </section>
 
+  <section class="page-section" id="projects">
+    <div class="section-header scroll-reveal">
+      <p class="section-eyebrow">&#11042; MY BUILDS &#11042;</p>
+      <h2 class="section-title">Project Feed</h2>
+      <p class="section-sub">Real machines. Real code. Real results.</p>
+    </div>
+    <div class="projects-toolbar scroll-reveal" data-delay="1">
+      <span id="projectCount" class="project-badge"></span>
+    </div>
+    <div class="search-wrapper scroll-reveal" data-delay="2">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search projects by name, keyword, or component…" autocomplete="off">
+    </div>
+    <div id="videoGridContainer" class="video-grid"></div>
+    <div class="no-results" id="noResults">
+      <i class="fas fa-satellite-dish"></i> No projects found for "<span id="noResultsQuery"></span>"
     </div>
   </section>
 
@@ -1036,7 +1034,7 @@ init();
 
   <div id="aitwin-floating-wrap">
     <div class="aitwin-tagline">want to talk with me?</div>
-    <a href="#ai-twin" id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
+    <a href="#spline-ai" id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
       <span class="notif-dot"></span>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
