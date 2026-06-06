@@ -207,7 +207,7 @@ body.cursor-hover .cursor-dot { background: #a855f7; box-shadow: 0 0 14px #a855f
 .robot-3d-container {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 260px;
   border-radius: 1.8rem;
   overflow: hidden;
   border: 1px solid rgba(0,245,255,0.2);
@@ -272,6 +272,108 @@ spline-viewer {
 
 /* ─────────────────── AI TWIN CHAT ─────────────────── */
 .ai-twin-chat-container { width: 100%; }
+.builder-name {
+  font-family: 'Bebas Neue', 'Orbitron', sans-serif;
+  font-size: clamp(4.5rem, 14vw, 9rem);
+  font-weight: 400;
+  letter-spacing: 6px;
+  line-height: 0.92;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.builder-name .first-name {
+  display: block;
+  color: #ffffff;
+  text-shadow:
+    0 0 80px rgba(255,255,255,0.06),
+    0 2px 0 rgba(0,0,0,0.4);
+}
+
+.builder-name .last-name {
+  display: block;
+  background: linear-gradient(90deg, #00f5ff 0%, #a855f7 55%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 30px rgba(168,85,247,0.3));
+}
+
+.builder-name-underline {
+  height: 3px;
+  width: 260px;
+  background: linear-gradient(90deg, #a855f7, #00f5ff, transparent);
+  border-radius: 4px;
+  margin-top: 0.2rem;
+}
+
+/* ─────────────────── HERO REMAINING ─────────────────── */
+.hero-eyebrow {
+  position: relative; font-family: 'Orbitron', monospace;
+  font-size: 0.7rem; letter-spacing: 5px; color: #a855f7;
+  margin-bottom: 1.1rem; text-shadow: 0 0 8px #a855f7;
+}
+.hero-heading {
+  position: relative; font-family: 'Orbitron', monospace;
+  font-size: clamp(1.4rem, 4vw, 2.4rem); font-weight: 900; line-height: 1.13;
+  background: linear-gradient(135deg, #ffffff 25%, #00f5ff 55%, #a855f7 85%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 1.3rem;
+}
+.hero-sub {
+  position: relative; font-size: clamp(0.9rem, 2vw, 1.05rem);
+  color: #7aa8cc; max-width: 580px; margin: 0 auto 2.2rem; line-height: 1.75;
+}
+.hero-cta {
+  position: relative; display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(95deg, #7c3aed, #0ea5e9);
+  border: none; padding: 0.85rem 2.4rem; border-radius: 3rem;
+  font-family: 'Orbitron', monospace; font-size: 0.82rem; letter-spacing: 1px;
+  color: white; cursor: pointer; transition: 0.25s; text-decoration: none;
+}
+.hero-cta:hover {
+  background: linear-gradient(95deg, #a855f7, #00f5ff);
+  box-shadow: 0 0 28px rgba(168,85,247,0.5), 0 0 56px rgba(0,245,255,0.2);
+  transform: scale(1.05); color: #000;
+}
+
+/* ─────────────────── PAGE SECTIONS ─────────────────── */
+.page-section {
+  max-width: 1400px; margin: 0 auto;
+  padding: 5rem 2rem;
+  border-bottom: 1px solid rgba(168,85,247,0.1);
+}
+
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-eyebrow {
+  font-family: 'Orbitron', monospace; font-size: 0.68rem;
+  letter-spacing: 5px; color: #7c3aed; text-shadow: 0 0 8px #7c3aed;
+  margin-bottom: 0.8rem;
+}
+.section-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900; letter-spacing: 3px;
+  background: linear-gradient(135deg, #ffffff, #00f5ff, #a855f7);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: gradShift 6s linear infinite;
+  margin-bottom: 0.6rem;
+}
+@keyframes gradShift { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+.section-sub {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+/* ─────────────────── AI TWIN CHAT SECTION ─────────────────── */
 .ai-twin-chat-panel {
   background: rgba(4,9,20,0.97); border: 1px solid rgba(168,85,247,0.35); border-radius: 1.8rem;
   overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 40px rgba(168,85,247,0.12), inset 0 1px 0 rgba(255,255,255,0.04);
@@ -562,7 +664,6 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
       <h2 class="section-title">Meet the Circuit Universe</h2>
       <p class="section-sub">Chat with my AI twin. Interact with NEXBOT in 3D.</p>
     </div>
-
     <div class="aitwin-dual-layout">
 
       <!-- LEFT: AI TWIN CHAT -->
