@@ -327,6 +327,36 @@ spline-viewer {
 .typing-dot:nth-child(3) { animation: typingBounce 1.2s ease-in-out 0.4s infinite; }
 @keyframes typingBounce { 0%,80%,100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-6px); opacity: 1; background: #00f5ff; } }
 
+/* ─────────────────── AI TWIN POPUP ─────────────────── */
+.aitwin-popup-overlay {
+  position: fixed; inset: 0; background: rgba(2,5,16,0.9); backdrop-filter: blur(12px);
+  z-index: 9000; display: none; align-items: center; justify-content: center;
+  padding: 2rem; overflow-y: auto;
+}
+.aitwin-popup-overlay.open { display: flex; animation: fadeInPopup 0.3s ease; }
+@keyframes fadeInPopup { from { opacity: 0; } to { opacity: 1; } }
+.aitwin-popup-content {
+  position: relative; width: 100%; max-width: 480px; max-height: 80vh;
+  background: rgba(4,9,20,0.98); border: 1px solid rgba(168,85,247,0.35);
+  border-radius: 2rem; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.8), 0 0 60px rgba(168,85,247,0.15);
+  animation: slideUpPopup 0.35s cubic-bezier(0.22,1,0.36,1);
+  display: flex; flex-direction: column;
+}
+@keyframes slideUpPopup { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.aitwin-popup-close {
+  position: absolute; top: 0.8rem; right: 0.8rem; background: none; border: none;
+  color: #a855f7; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  padding: 6px; transition: 0.2s; z-index: 10; border-radius: 50%;
+  background: rgba(2,5,16,0.6); backdrop-filter: blur(4px);
+}
+.aitwin-popup-close:hover { color: #00f5ff; transform: scale(1.15); background: rgba(168,85,247,0.2); }
+.aitwin-popup-content .ai-twin-chat-messages { min-height: 300px; max-height: 50vh; }
+@media (max-width: 540px) {
+  .aitwin-popup-overlay { padding: 1rem; }
+  .aitwin-popup-content { max-height: 90vh; }
+}
+
 /* ─────────────────── FLOATING AI TRIGGER ─────────────────── */
 #aitwin-trigger {
   width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #00f5ff);
@@ -496,6 +526,41 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
         </svg>
       </button>
       <div id="projectDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- ─── AI TWIN POPUP ─── -->
+  <div class="aitwin-popup-overlay" id="aitwinPopup" role="dialog" aria-modal="true">
+    <div class="aitwin-popup-content">
+      <button class="aitwin-popup-close" id="aitwinPopupClose" aria-label="Close">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="27" y1="9" x2="9" y2="27"/>
+          <line x1="9" y1="9" x2="27" y2="27"/>
+        </svg>
+      </button>
+      <div class="ai-twin-chat-panel" style="border:none;border-radius:0;box-shadow:none;background:transparent;">
+        <div class="ai-twin-chat-header">
+          <div class="ai-twin-chat-avatar">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
+            </svg>
+          </div>
+          <div class="ai-twin-chat-header-text">
+            <div class="ai-twin-chat-name">CIRCUIT-X</div>
+            <div class="ai-twin-chat-status">ONLINE</div>
+          </div>
+        </div>
+        <div class="ai-twin-chat-messages" id="twinPopupMessages"></div>
+        <div class="ai-twin-chat-suggestions" id="twinPopupSuggestions"></div>
+        <div class="ai-twin-chat-input-row">
+          <textarea class="ai-twin-chat-input" id="twinPopupInput" placeholder="Ask Circuit-X anything…" rows="1" aria-label="Message input"></textarea>
+          <button class="ai-twin-chat-send" id="twinPopupSend" aria-label="Send message">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -928,16 +993,75 @@ init();
   if (!section || !input) return;
   new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) setTimeout(() => input.focus(), 400); }); }, { threshold: 0.3 }).observe(section);
 })();
+  (function initAITwinPopup() {
+    const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
+    const BOT_NAME = 'CIRCUIT-X';
+    const SUGGESTIONS = ['⚡ What projects have you built?','🤖 How does the eye-controlled car work?','📡 Tell me about your maze solver','🔧 What hardware do you use?'];
+    const popup = document.getElementById('aitwinPopup');
+    const messagesEl = document.getElementById('twinPopupMessages');
+    const inputEl = document.getElementById('twinPopupInput');
+    const sendBtn = document.getElementById('twinPopupSend');
+    const sugBox = document.getElementById('twinPopupSuggestions');
+    const trigger = document.getElementById('aitwin-trigger');
+    const closeBtn = document.getElementById('aitwinPopupClose');
+    if (!popup || !messagesEl) return;
+    let isLoading = false, history = [];
+    function getTime() { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+    function escT(s) { return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function scrollBottom() { messagesEl.scrollTop = messagesEl.scrollHeight; }
+    function addMsg(cls, prefix, text) { const d = document.createElement('div'); d.className = 'ai-twin-chat-msg '+cls; d.innerHTML = '<div class="ai-twin-chat-bubble">'+escT(text)+'</div><div class="ai-twin-chat-ts">'+prefix+' · '+getTime()+'</div>'; messagesEl.appendChild(d); scrollBottom(); }
+    function addTyping() { const d = document.createElement('div'); d.className = 'ai-twin-chat-msg bot'; d.id = 'twinPopupTyping'; d.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>'; messagesEl.appendChild(d); scrollBottom(); }
+    function removeTyping() { const el = document.getElementById('twinPopupTyping'); if (el) el.remove(); }
+    function addError(msg) { const d = document.createElement('div'); d.className = 'ai-twin-chat-error'; d.textContent = msg; messagesEl.appendChild(d); scrollBottom(); }
+    function renderSuggestions() {
+      sugBox.innerHTML = SUGGESTIONS.map(s => '<button class="ai-twin-chat-chip">'+s+'</button>').join('');
+      sugBox.querySelectorAll('.ai-twin-chat-chip').forEach(chip => { chip.addEventListener('click', () => { const text = chip.innerText.replace(/^[⚡🤖📡🔧]\s/, ''); submitMessage(text); sugBox.innerHTML = ''; }); });
+    }
+    function openPopup() {
+      popup.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (messagesEl.children.length === 0) { addMsg('bot', BOT_NAME, 'Hey! I\\'m '+BOT_NAME+' — Devansh\\'s AI twin. Ask me anything! ⚡'); renderSuggestions(); }
+      setTimeout(function(){ inputEl.focus(); }, 400);
+    }
+    function closePopup() {
+      popup.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    if (trigger) { trigger.addEventListener('click', function(e){ e.preventDefault(); openPopup(); }); }
+    if (closeBtn) closeBtn.addEventListener('click', closePopup);
+    popup.addEventListener('click', function(e){ if (e.target === popup) closePopup(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closePopup(); });
+    async function submitMessage(text) {
+      var msg = text.trim();
+      if (!msg || isLoading) return;
+      inputEl.value = ''; inputEl.style.height = 'auto'; sugBox.innerHTML = '';
+      addMsg('user', 'You', msg); history.push({ role: 'user', content: msg });
+      isLoading = true; sendBtn.disabled = true; addTyping();
+      try {
+        var r = await fetch(HF_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg }) });
+        removeTyping();
+        if (!r.ok) throw new Error('API '+r.status);
+        var data = await r.json();
+        var reply = data.reply || 'No response.';
+        addMsg('bot', BOT_NAME, reply); history.push({ role: 'assistant', content: reply });
+        if (history.length > 20) history = history.slice(-20);
+      } catch (err) { removeTyping(); addError('⚠️ Could not reach Circuit-X.'); }
+      isLoading = false; sendBtn.disabled = false; inputEl.focus();
+    }
+    sendBtn.addEventListener('click', function(){ submitMessage(inputEl.value); });
+    inputEl.addEventListener('keydown', function(e){ if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitMessage(inputEl.value); } });
+    inputEl.addEventListener('input', function(){ inputEl.style.height = 'auto'; inputEl.style.height = Math.min(inputEl.scrollHeight, 100) + 'px'; });
+  })();
   </script>
 
   <div id="aitwin-floating-wrap">
     <div class="aitwin-tagline">want to talk with me?</div>
-    <a href="#ai-twin" id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
+    <button id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
       <span class="notif-dot"></span>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
       </svg>
-    </a>
+    </button>
   </div>
 
 </body>
