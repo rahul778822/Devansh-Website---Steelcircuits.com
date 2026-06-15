@@ -330,7 +330,7 @@ spline-viewer {
 /* ─────────────────── AI TWIN POPUP (floating rounded panel) ─────────────────── */
 #aitwinPopup {
   position: fixed; bottom: 7rem; right: 2rem; z-index: 8001;
-  width: 400px; max-height: 580px;
+  width: 350px; max-height: 640px;
   background: rgba(4,9,20,0.97); border: 1px solid rgba(168,85,247,0.35);
   border-radius: 1.8rem; overflow: hidden;
   box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 40px rgba(168,85,247,0.12), inset 0 1px 0 rgba(255,255,255,0.04);
@@ -340,7 +340,7 @@ spline-viewer {
 }
 #aitwinPopup.open { display: flex; transform: translateY(0) scale(1); opacity: 1; }
 #aitwinPopup .ai-twin-chat-panel { border: none; border-radius: 0; box-shadow: none; background: transparent; height: 100%; display: flex; flex-direction: column; }
-#aitwinPopup .ai-twin-chat-messages { min-height: 200px; max-height: 360px; flex: 1; }
+#aitwinPopup .ai-twin-chat-messages { min-height: 250px; max-height: 420px; flex: 1; }
 #aitwinPopup .ai-twin-chat-header { padding: 1.2rem 1.4rem 1rem; }
 #aitwinPopup .ai-twin-chat-header .aitwin-popup-close { margin-left: auto; background: none; border: none; color: #a855f7; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: 50%; transition: 0.2s; flex-shrink: 0; }
 #aitwinPopup .ai-twin-chat-header .aitwin-popup-close:hover { color: #00f5ff; transform: scale(1.15); background: rgba(168,85,247,0.1); }
@@ -362,9 +362,7 @@ spline-viewer {
 #aitwin-trigger .notif-dot { position: absolute; top: 4px; right: 4px; width: 12px; height: 12px; border-radius: 50%; background: #00f5ff; border: 2px solid #020508; animation: dotBlink 2s ease-in-out infinite; }
 @keyframes dotBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 #aitwin-floating-wrap { position: fixed; bottom: 2rem; right: 2rem; z-index: 8000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-.aitwin-tagline { font-family: 'Orbitron', monospace; font-size: 0.68rem; letter-spacing: 1.5px; color: #00f5ff; background: rgba(2,5,16,0.85); border: 1px solid rgba(0,245,255,0.25); padding: 0.4rem 0.9rem; border-radius: 2rem; white-space: nowrap; box-shadow: 0 0 16px rgba(0,245,255,0.15); animation: taglineGlow 2.5s ease-in-out infinite; pointer-events: none; }
-@keyframes taglineGlow { 0%,100% { box-shadow: 0 0 16px rgba(0,245,255,0.15); } 50% { box-shadow: 0 0 28px rgba(0,245,255,0.35); } }
-@media (max-width: 480px) { #aitwin-floating-wrap { bottom: 1.2rem; right: 1.2rem; } .aitwin-tagline { font-size: 0.6rem; padding: 0.3rem 0.7rem; } }
+@media (max-width: 480px) { #aitwin-floating-wrap { bottom: 1.2rem; right: 1.2rem; } }
 #aitwin-floating-wrap #aitwin-trigger { position: relative; bottom: auto; right: auto; }
 
 /* ─────────────────── SEARCH ─────────────────── */
@@ -791,7 +789,6 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
   </footer>
 
   <div id="aitwin-floating-wrap">
-    <div class="aitwin-tagline">want to talk with me?</div>
     <button id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
       <span class="notif-dot"></span>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
