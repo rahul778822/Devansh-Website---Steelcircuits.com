@@ -535,14 +535,14 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
           </svg>
         </div>
         <div class="ai-twin-chat-header-text">
-          <div class="ai-twin-chat-name">CIRCUIT-X</div>
+          <div class="ai-twin-chat-name">Devansh's AI Twin</div>
           <div class="ai-twin-chat-status">ONLINE</div>
         </div>
       </div>
       <div class="ai-twin-chat-messages" id="twinPopupMessages"></div>
       <div class="ai-twin-chat-suggestions" id="twinPopupSuggestions"></div>
       <div class="ai-twin-chat-input-row">
-        <textarea class="ai-twin-chat-input" id="twinPopupInput" placeholder="Ask Circuit-X anything…" rows="1" aria-label="Message input"></textarea>
+        <textarea class="ai-twin-chat-input" id="twinPopupInput" placeholder="Ask Devansh's AI Twin anything…" rows="1" aria-label="Message input"></textarea>
         <button class="ai-twin-chat-send" id="twinPopupSend" aria-label="Send message">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
@@ -630,14 +630,14 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
               </svg>
             </div>
             <div class="ai-twin-chat-header-text">
-              <div class="ai-twin-chat-name">CIRCUIT-X</div>
+              <div class="ai-twin-chat-name">Devansh's AI Twin</div>
               <div class="ai-twin-chat-status">ONLINE</div>
             </div>
           </div>
           <div class="ai-twin-chat-messages" id="twinMessages"></div>
           <div class="ai-twin-chat-suggestions" id="twinSuggestions"></div>
           <div class="ai-twin-chat-input-row">
-            <textarea class="ai-twin-chat-input" id="twinInput" placeholder="Ask Circuit-X anything…" rows="1" aria-label="Message input"></textarea>
+            <textarea class="ai-twin-chat-input" id="twinInput" placeholder="Ask Devansh's AI Twin anything…" rows="1" aria-label="Message input"></textarea>
             <button class="ai-twin-chat-send" id="twinSend" aria-label="Send message">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
@@ -789,7 +789,7 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
   </footer>
 
   <div id="aitwin-floating-wrap">
-    <button id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
+    <button id="aitwin-trigger" aria-label="Open Devansh's AI Twin">
       <span class="notif-dot"></span>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
@@ -943,7 +943,7 @@ init();
 
 (function initAITwinChat() {
   const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
-  const BOT_NAME = 'CIRCUIT-X';
+  const BOT_NAME = "Devansh's AI Twin";
   const SUGGESTIONS = ['⚡ What projects have you built?','🤖 How does the eye-controlled car work?','📡 Tell me about your maze solver','🔧 What hardware do you use?'];
   const messagesEl = document.getElementById('twinMessages'), inputEl = document.getElementById('twinInput'), sendBtn = document.getElementById('twinSend'), sugBox = document.getElementById('twinSuggestions');
   if (!messagesEl) return;
@@ -975,7 +975,7 @@ init();
       const reply = data.reply || 'No response.';
       addMsg('bot', BOT_NAME, reply); history.push({ role: 'assistant', content: reply });
       if (history.length > 20) history = history.slice(-20);
-    } catch (err) { removeTyping(); addError('⚠️ Could not reach Circuit-X.'); }
+    } catch (err) { removeTyping(); addError("⚠️ Could not reach Devansh's AI Twin."); }
     isLoading = false; sendBtn.disabled = false; inputEl.focus();
   }
   addMsg('bot', BOT_NAME, `Hey! I'm ${BOT_NAME} — Devansh's AI twin. Ask me anything about his robotics projects, skills, or SteelCircuits. ⚡`);
@@ -992,7 +992,7 @@ init();
 })();
   (function initAITwinPopup() {
     const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
-    const BOT_NAME = 'CIRCUIT-X';
+    const BOT_NAME = "Devansh's AI Twin";
     const SUGGESTIONS = ['⚡ What projects have you built?','🤖 How does the eye-controlled car work?','📡 Tell me about your maze solver','🔧 What hardware do you use?'];
     const popup = document.getElementById('aitwinPopup');
     const messagesEl = document.getElementById('twinPopupMessages');
@@ -1039,7 +1039,7 @@ init();
         var reply = data.reply || 'No response.';
         addMsg('bot', BOT_NAME, reply); history.push({ role: 'assistant', content: reply });
         if (history.length > 20) history = history.slice(-20);
-      } catch (err) { removeTyping(); addError('⚠️ Could not reach Circuit-X.'); }
+      } catch (err) { removeTyping(); addError("⚠️ Could not reach Devansh's AI Twin."); }
       isLoading = false; sendBtn.disabled = false; inputEl.focus();
     }
     sendBtn.addEventListener('click', function(){ submitMessage(inputEl.value); });

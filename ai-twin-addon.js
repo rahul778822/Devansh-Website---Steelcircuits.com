@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════════════════════════
-   CIRCUIT-X AI TWIN — Inline mode with grid section support
+   Devansh's AI TWIN — Inline mode with grid section support
    Injects into #aitwin-inline-container if present, else floats
 ════════════════════════════════════════════════════════════════ */
 
 (function initAITwin() {
 
   const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
-  const BOT_NAME = 'CIRCUIT-X';
-  const SYSTEM_PROMPT = `You are Circuit-X, the AI twin of Devansh — a robotics and embedded systems builder behind SteelCircuits. 
+  const BOT_NAME = "Devansh's AI Twin";
+  const SYSTEM_PROMPT = `You are Devansh's AI Twin — a robotics and embedded systems builder behind SteelCircuits. 
 Answer questions about Devansh's projects, his skills, and SteelCircuits.
 Keep answers concise, enthusiastic, and technical.`;
 
@@ -20,14 +20,14 @@ Keep answers concise, enthusiastic, and technical.`;
 
   /* ─── Inject HTML ──────────────────────────────────────── */
   const html = `
-    <button id="aitwin-trigger" aria-label="Open Circuit-X AI Twin">
+    <button id="aitwin-trigger" aria-label="Open Devansh's AI Twin">
       <span class="notif-dot"></span>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM5 14v4h2v1a1 1 0 0 0 2 0v-1h6v1a1 1 0 0 0 2 0v-1h2v-4H5zm4 1h2v2H9v-2zm4 0h2v2h-2v-2z"/>
       </svg>
     </button>
 
-    <div id="aitwin-panel" role="dialog" aria-label="Circuit-X AI Twin Chat" aria-hidden="true">
+    <div id="aitwin-panel" role="dialog" aria-label="Devansh's AI Twin Chat" aria-hidden="true">
       <div class="aitwin-header">
         <div class="aitwin-avatar">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@ Keep answers concise, enthusiastic, and technical.`;
       <div class="aitwin-suggestions" id="aitwin-suggestions"></div>
 
       <div class="aitwin-input-row">
-        <textarea id="aitwin-input" placeholder="Ask Circuit-X anything…" rows="1" aria-label="Message input"></textarea>
+        <textarea id="aitwin-input" placeholder="Ask Devansh's AI Twin anything…" rows="1" aria-label="Message input"></textarea>
         <button id="aitwin-send" aria-label="Send message">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
@@ -208,8 +208,8 @@ Keep answers concise, enthusiastic, and technical.`;
       if (history.length > 20) history = history.slice(-20);
     } catch (err) {
       removeTypingIndicator();
-      console.error('[Circuit-X]', err);
-      addErrorMessage('⚠️ Could not reach Circuit-X.');
+      console.error("[Devansh's AI Twin]", err);
+      addErrorMessage("⚠️ Could not reach Devansh's AI Twin.");
     }
 
     isLoading = false;
