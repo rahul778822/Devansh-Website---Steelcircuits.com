@@ -1022,7 +1022,7 @@ init();
     function closePopup() {
       popup.classList.remove('open');
     }
-    if (trigger) { trigger.addEventListener('click', function(e){ e.preventDefault(); openPopup(); }); }
+    if (trigger) { trigger.addEventListener('click', function(e){ e.preventDefault(); popup.classList.contains('open') ? closePopup() : openPopup(); }); }
     if (closeBtn) closeBtn.addEventListener('click', closePopup);
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closePopup(); });
     async function submitMessage(text) {
