@@ -439,7 +439,7 @@ spline-viewer {
 .carousel-wrapper::before, .carousel-wrapper::after { content: ''; position: absolute; top: 0; height: 100%; z-index: 2; width: 80px; pointer-events: none; }
 .carousel-wrapper::before { left: 0; background: linear-gradient(90deg, rgba(4,9,20,0.9), transparent); }
 .carousel-wrapper::after { right: 0; background: linear-gradient(-90deg, rgba(4,9,20,0.9), transparent); }
-.carousel-track { display: flex; gap: 1.2rem; width: max-content; animation: slideLogos 30s linear infinite; }
+.carousel-track { display: flex; gap: 1.2rem; width: max-content; animation: slideLogos var(--duration, 30s) linear infinite; }
 .carousel-track:hover { animation-play-state: paused; }
 @keyframes slideLogos { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 .tech-logo-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; min-width: 82px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 1.2rem; padding: 1.1rem 1rem; transition: 0.25s; cursor: default; flex-shrink: 0; }
@@ -761,9 +761,9 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
       <div class="tech-section scroll-reveal" data-delay="6">
         <p class="tech-section-label">&#11042; AI EXPERIENCE &amp; TOOLS I'VE WORKED WITH &#11042;</p>
         <div class="carousel-wrapper">
-          <div class="carousel-track">
+          <div class="carousel-track" style="--duration: 19s">
             <div class="tech-logo-item" style="--accent:#d97706"><div class="tech-icon"><i class="fas fa-terminal"></i></div><span>Claude Code</span></div>
-            <div class="tech-logo-item" style="--accent:#10a37f"><div class="tech-icon"><i class="fab fa-openai"></i></div><span>ChatGPT</span></div>
+            <div class="tech-logo-item" style="--accent:#10a37f"><div class="tech-icon"><svg viewBox="0 0 28 28" width="1.7rem" height="1.7rem" xmlns="http://www.w3.org/2000/svg" style="display:block;vertical-align:middle"><rect width="28" height="28" rx="6" fill="#10a37f"/><path d="M14 8c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6z" fill="white" opacity="0.2"/><path d="M14 10l1.8 1.2-.7 2.1h-2.2l-.7-2.1L14 10z" fill="white"/><path d="M10.5 12.5l1.2-1.8 2.1.7v2.2l-2.1.7-1.2-1.8z" fill="white" opacity="0.65"/><path d="M17.5 12.5l-1.2-1.8-2.1.7v2.2l2.1.7 1.2-1.8z" fill="white" opacity="0.65"/><path d="M14 18l-1.8-1.2.7-2.1h2.2l.7 2.1L14 18z" fill="white" opacity="0.45"/></svg></div><span>ChatGPT</span></div>
             <div class="tech-logo-item" style="--accent:#4f46e5"><div class="tech-icon"><i class="fas fa-microchip"></i></div><span>DeepSeek</span></div>
             <div class="tech-logo-item" style="--accent:#7c3aed"><div class="tech-icon"><i class="fas fa-code"></i></div><span>Codex</span></div>
             <div class="tech-logo-item" style="--accent:#f97316"><div class="tech-icon"><i class="fas fa-brain"></i></div><span>Ollama</span></div>
@@ -773,7 +773,7 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
             <div class="tech-logo-item" style="--accent:#4285f4"><div class="tech-icon"><i class="fab fa-google"></i></div><span>Gemini</span></div>
             <div class="tech-logo-item" style="--accent:#ea4335"><div class="tech-icon"><i class="fab fa-google"></i></div><span>Google AI Studio</span></div>
             <div class="tech-logo-item" style="--accent:#d97706"><div class="tech-icon"><i class="fas fa-terminal"></i></div><span>Claude Code</span></div>
-            <div class="tech-logo-item" style="--accent:#10a37f"><div class="tech-icon"><i class="fab fa-openai"></i></div><span>ChatGPT</span></div>
+            <div class="tech-logo-item" style="--accent:#10a37f"><div class="tech-icon"><svg viewBox="0 0 28 28" width="1.7rem" height="1.7rem" xmlns="http://www.w3.org/2000/svg" style="display:block;vertical-align:middle"><rect width="28" height="28" rx="6" fill="#10a37f"/><path d="M14 8c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6z" fill="white" opacity="0.2"/><path d="M14 10l1.8 1.2-.7 2.1h-2.2l-.7-2.1L14 10z" fill="white"/><path d="M10.5 12.5l1.2-1.8 2.1.7v2.2l-2.1.7-1.2-1.8z" fill="white" opacity="0.65"/><path d="M17.5 12.5l-1.2-1.8-2.1.7v2.2l2.1.7 1.2-1.8z" fill="white" opacity="0.65"/><path d="M14 18l-1.8-1.2.7-2.1h2.2l.7 2.1L14 18z" fill="white" opacity="0.45"/></svg></div><span>ChatGPT</span></div>
             <div class="tech-logo-item" style="--accent:#4f46e5"><div class="tech-icon"><i class="fas fa-microchip"></i></div><span>DeepSeek</span></div>
             <div class="tech-logo-item" style="--accent:#7c3aed"><div class="tech-icon"><i class="fas fa-code"></i></div><span>Codex</span></div>
             <div class="tech-logo-item" style="--accent:#f97316"><div class="tech-icon"><i class="fas fa-brain"></i></div><span>Ollama</span></div>
