@@ -692,7 +692,8 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
           Every project is a step toward intelligent, reactive robots that actually work in the real world.
         </p>
         <p class="about-bio scroll-reveal" data-delay="2">
-          &#9881;&#65039; Passionate about open-source robotics, PCB design, computer vision, and mechanical actuation.
+          &#9881;&#65039; Passionate about open-source robotics, PCB design, computer vision, laser cutting fabrication, and mechanical actuation.
+          I also build AI-powered agent workflows using Paperclip AI to automate and orchestrate complex robotics pipelines.
           This showcase is a pure video archive of my builds — no commercial intent, only the love for circuits &amp; motion.
         </p>
         <div class="about-stats scroll-reveal" data-delay="3">
@@ -710,6 +711,8 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
           <div class="skill"><i class="fas fa-cogs"></i> Robotics</div>
           <div class="skill"><i class="fas fa-broadcast-tower"></i> Sensor Fusion</div>
           <div class="skill"><i class="fas fa-brain"></i> Machine Learning</div>
+          <div class="skill"><i class="fas fa-cut"></i> Laser Cutting</div>
+          <div class="skill"><i class="fas fa-link"></i> Paperclip AI</div>
         </div>
       </div>
 
@@ -730,6 +733,8 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
             <div class="tech-logo-item" style="--accent:#e2e8f0"><div class="tech-icon"><i class="fab fa-github"></i></div><span>GitHub</span></div>
             <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-atom"></i></div><span>Physics Sim</span></div>
             <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-broadcast-tower"></i></div><span>RF Control</span></div>
+            <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fas fa-cut"></i></div><span>Laser Cutting</span></div>
+            <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-link"></i></div><span>Paperclip AI</span></div>
             <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fas fa-bolt"></i></div><span>Electronics</span></div>
             <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-microchip"></i></div><span>Arduino</span></div>
             <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fab fa-python"></i></div><span>Python</span></div>
@@ -744,6 +749,8 @@ footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid rgba(16
             <div class="tech-logo-item" style="--accent:#e2e8f0"><div class="tech-icon"><i class="fab fa-github"></i></div><span>GitHub</span></div>
             <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-atom"></i></div><span>Physics Sim</span></div>
             <div class="tech-logo-item" style="--accent:#00f5ff"><div class="tech-icon"><i class="fas fa-broadcast-tower"></i></div><span>RF Control</span></div>
+            <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fas fa-cut"></i></div><span>Laser Cutting</span></div>
+            <div class="tech-logo-item" style="--accent:#a855f7"><div class="tech-icon"><i class="fas fa-link"></i></div><span>Paperclip AI</span></div>
             <div class="tech-logo-item" style="--accent:#f7c948"><div class="tech-icon"><i class="fas fa-bolt"></i></div><span>Electronics</span></div>
           </div>
         </div>
@@ -944,7 +951,7 @@ init();
 (function initAITwinChat() {
   const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
   const BOT_NAME = "Devansh's AI Twin";
-  const SUGGESTIONS = ['⚡ What projects have you built?','🤖 How does the eye-controlled car work?','📡 Tell me about your maze solver','🔧 What hardware do you use?'];
+  const SUGGESTIONS = ['⚡ What projects have you built?','🤖 How does the eye-controlled car work?','🔧 What hardware do you use?','✂️ Do you use laser cutting?','🔗 What is Paperclip AI?'];
   const messagesEl = document.getElementById('twinMessages'), inputEl = document.getElementById('twinInput'), sendBtn = document.getElementById('twinSend'), sugBox = document.getElementById('twinSuggestions');
   if (!messagesEl) return;
   let isLoading = false, history = [];
@@ -958,7 +965,7 @@ init();
   function renderSuggestions() {
     sugBox.innerHTML = SUGGESTIONS.map(s => `<button class="ai-twin-chat-chip">${s}</button>`).join('');
     sugBox.querySelectorAll('.ai-twin-chat-chip').forEach(chip => {
-      chip.addEventListener('click', () => { const text = chip.innerText.replace(/^[⚡🤖📡🔧]\s/, ''); submitMessage(text); sugBox.innerHTML = ''; });
+      chip.addEventListener('click', () => { const text = chip.innerText.replace(/^[⚡🤖🔧✂️🔗]\s/, ''); submitMessage(text); sugBox.innerHTML = ''; });
     });
   }
   async function submitMessage(text) {
@@ -968,7 +975,7 @@ init();
     addMsg('user', 'You', msg); history.push({ role: 'user', content: msg });
     isLoading = true; sendBtn.disabled = true; addTyping();
     try {
-      const r = await fetch(HF_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg }) });
+      const r = await fetch(HF_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg, system_prompt: 'Devansh uses laser cutting for precise acrylic and wood chassis fabrication in his robotics builds. He also builds agentic workflows with Paperclip AI to orchestrate robotics pipelines.' }) });
       removeTyping();
       if (!r.ok) throw new Error(`API ${r.status}`);
       const data = await r.json();
@@ -978,7 +985,7 @@ init();
     } catch (err) { removeTyping(); addError("⚠️ Could not reach Devansh's AI Twin."); }
     isLoading = false; sendBtn.disabled = false; inputEl.focus();
   }
-  addMsg('bot', BOT_NAME, `Hey! I'm ${BOT_NAME} — Devansh's AI twin. Ask me anything about his robotics projects, skills, or SteelCircuits. ⚡`);
+  addMsg('bot', BOT_NAME, `Hey! I'm ${BOT_NAME} — Devansh's AI twin. Ask me about his robotics builds, laser cutting fabrication, Paperclip AI workflows, or SteelCircuits. ⚡`);
   renderSuggestions();
   sendBtn.addEventListener('click', () => submitMessage(inputEl.value));
   inputEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitMessage(inputEl.value); } });
@@ -993,7 +1000,7 @@ init();
   (function initAITwinPopup() {
     const HF_API_URL = 'https://devansh8011-ai-chatbot.hf.space/chat';
     const BOT_NAME = "Devansh's AI Twin";
-    const SUGGESTIONS = ['⚡ What projects have you built?','🤖 How does the eye-controlled car work?','📡 Tell me about your maze solver','🔧 What hardware do you use?'];
+    const SUGGESTIONS = ['⚡ What projects have you built?','🤖 How does the eye-controlled car work?','🔧 What hardware do you use?','✂️ Do you use laser cutting?','🔗 What is Paperclip AI?'];
     const popup = document.getElementById('aitwinPopup');
     const messagesEl = document.getElementById('twinPopupMessages');
     const inputEl = document.getElementById('twinPopupInput');
@@ -1012,11 +1019,11 @@ init();
     function addError(msg) { const d = document.createElement('div'); d.className = 'ai-twin-chat-error'; d.textContent = msg; messagesEl.appendChild(d); scrollBottom(); }
     function renderSuggestions() {
       sugBox.innerHTML = SUGGESTIONS.map(s => '<button class="ai-twin-chat-chip">'+s+'</button>').join('');
-      sugBox.querySelectorAll('.ai-twin-chat-chip').forEach(chip => { chip.addEventListener('click', () => { const text = chip.innerText.replace(/^[⚡🤖📡🔧]\s/, ''); submitMessage(text); sugBox.innerHTML = ''; }); });
+      sugBox.querySelectorAll('.ai-twin-chat-chip').forEach(chip => { chip.addEventListener('click', () => { const text = chip.innerText.replace(/^[⚡🤖🔧✂️🔗]\s/, ''); submitMessage(text); sugBox.innerHTML = ''; }); });
     }
     function openPopup() {
       popup.classList.add('open');
-      if (messagesEl.children.length === 0) { addMsg('bot', BOT_NAME, 'Hey! I\'m '+BOT_NAME+' — Devansh\'s AI twin. Ask me anything! ⚡'); renderSuggestions(); }
+      if (messagesEl.children.length === 0) { addMsg('bot', BOT_NAME, 'Hey! I\'m '+BOT_NAME+' — Devansh\'s AI twin. Ask me about robotics, laser cutting, or Paperclip AI! ⚡'); renderSuggestions(); }
       setTimeout(function(){ inputEl.focus(); }, 400);
     }
     function closePopup() {
@@ -1032,7 +1039,7 @@ init();
       addMsg('user', 'You', msg); history.push({ role: 'user', content: msg });
       isLoading = true; sendBtn.disabled = true; addTyping();
       try {
-        var r = await fetch(HF_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg }) });
+        var r = await fetch(HF_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg, system_prompt: 'Devansh uses laser cutting for precise acrylic and wood chassis fabrication in his robotics builds. He also builds agentic workflows with Paperclip AI to orchestrate robotics pipelines.' }) });
         removeTyping();
         if (!r.ok) throw new Error('API '+r.status);
         var data = await r.json();

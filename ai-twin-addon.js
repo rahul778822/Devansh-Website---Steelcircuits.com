@@ -14,8 +14,9 @@ Keep answers concise, enthusiastic, and technical.`;
   const SUGGESTIONS = [
     '⚡ What projects have you built?',
     '🤖 How does the eye-controlled car work?',
-    '📡 Tell me about your maze solver',
     '🔧 What hardware do you use?',
+    '✂️ Do you use laser cutting?',
+    '🔗 What is Paperclip AI?',
   ];
 
   /* ─── Inject HTML ──────────────────────────────────────── */
@@ -85,7 +86,7 @@ Keep answers concise, enthusiastic, and technical.`;
     panel.setAttribute('aria-hidden', 'false');
     trigger.querySelector('.notif-dot').style.display = 'none';
     if (messages.children.length === 0) {
-      addBotMessage(`Hey! I'm ${BOT_NAME} — Devansh's AI twin. Ask me anything! ⚡`);
+      addBotMessage(`Hey! I'm ${BOT_NAME} — Devansh's AI twin. Ask me about robotics, laser cutting fabrication, or Paperclip AI workflows! ⚡`);
       renderSuggestions();
     }
     setTimeout(() => input.focus(), 350);
@@ -108,7 +109,7 @@ Keep answers concise, enthusiastic, and technical.`;
     ).join('');
     sugBox.querySelectorAll('.suggestion-chip').forEach(chip => {
       chip.addEventListener('click', () => {
-        submitMessage(chip.innerText.replace(/^[⚡🤖📡🔧]\s/, ''));
+        submitMessage(chip.innerText.replace(/^[⚡🤖🔧✂️🔗]\s/, ''));
         sugBox.innerHTML = '';
       });
     });
@@ -170,7 +171,7 @@ Keep answers concise, enthusiastic, and technical.`;
     const response = await fetch(HF_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: userMessage }),
+      body: JSON.stringify({ message: userMessage, system_prompt: 'Devansh uses laser cutting for precise acrylic and wood chassis fabrication in his robotics builds. He also builds agentic workflows with Paperclip AI to orchestrate robotics pipelines.' }),
     });
     if (!response.ok) {
       const err = await response.text();
