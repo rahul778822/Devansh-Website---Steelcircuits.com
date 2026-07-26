@@ -1855,6 +1855,9 @@
       ));
     });
 
+    /* Show every project on first load, before any search input */
+    renderProjects(PROJECTS);
+
     /* ================================================================
        PROJECT MODAL
        ================================================================ */
@@ -1902,16 +1905,6 @@
        shared engine. Uses Groq if CONFIG.GROQ_API_KEY is set; otherwise
        falls back to built-in offline answers so the widget still works.
        ================================================================ */
-    const TWIN_SYSTEM_PROMPT =
-      "You are Circuit-X, the AI twin of Devansh Grover, a robotics builder from Delhi/Gurgaon, India who runs SteelCircuits. " +
-      "You answer visitors' questions about his projects in a friendly, concise, slightly futuristic tone. " +
-      "His projects include: NEXUS Delivery Bot (ESP32, VL53L0X LiDAR, BTS7960 drivers, ultrasonic anti-theft), " +
-      "Robo Race Bot (4WD, BTS7960, FlySky RC), Eye Controlled Car (MediaPipe gaze tracking to ESP32 over WiFi), " +
-      "RFID Attendance System (RC522 + Arduino to Google Sheets), " +
-      "and a Maze Rescue competition robot (Raspberry Pi vision + Arduino Mega + ESP32). " +
-      "His stack: ESP32, Arduino, Raspberry Pi, Python, C/C++, OpenCV, MediaPipe, PCB design, laser cutting. " +
-      "Keep replies under 120 words. If asked something unrelated to Devansh or robotics, politely steer back.";
-
     const TWIN_GREETING = "⚡ Hey! I'm Circuit-X — Devansh's AI twin. Ask me about any of his robots, the tech stack, or how a build works!";
     const TWIN_SUGGESTIONS = [
       "What is the NEXUS Delivery Bot?",
@@ -1949,7 +1942,7 @@
         body: JSON.stringify({
           model: CONFIG.GROQ_MODEL,
           max_tokens: 300,
-          messages: [{ role: "system", content: TWIN_SYSTEM_PROMPT }, ...history]
+          messages: [...history]
         })
       });
       if (!res.ok) throw new Error("Groq API error " + res.status);
