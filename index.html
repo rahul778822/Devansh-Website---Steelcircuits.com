@@ -1167,6 +1167,10 @@
     .skill:hover { border-color: #a855f7; color: #fff; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(168, 85, 247, .25); }
     .skill:hover::before { opacity: 1; }
     .skill-icon, .skill span { position: relative; z-index: 1; }
+    .skill-logo { position: relative; z-index: 1; display: inline-block; vertical-align: middle; transition: filter .25s, transform .25s; }
+    .skill:hover .skill-logo { filter: drop-shadow(0 0 8px #a855f7); transform: scale(1.1); }
+    .tech-icon img { display: block; transition: filter .3s, transform .3s; }
+    .tech-logo-item:hover .tech-icon img { filter: drop-shadow(0 0 12px var(--accent)); }
 
     /* ============================================================
        TECH CAROUSEL
@@ -1624,16 +1628,16 @@
           </div>
         </div>
         <div class="skills scroll-reveal" data-delay="4">
-          <div class="skill"><span>&#9881;&#65039;</span><span>Arduino</span></div>
-          <div class="skill"><span>&#128013;</span><span>Python</span></div>
-          <div class="skill"><span>&#128196;</span><span>C / C++</span></div>
-          <div class="skill"><span>&#128065;&#65039;</span><span>OpenCV</span></div>
-          <div class="skill"><span>&#128246;</span><span>ESP32</span></div>
-          <div class="skill"><span>&#129302;</span><span>Robotics</span></div>
-          <div class="skill"><span>&#128225;</span><span>Sensor Fusion</span></div>
-          <div class="skill"><span>&#129504;</span><span>Machine Learning</span></div>
-          <div class="skill"><span>&#9986;&#65039;</span><span>Laser Cutting</span></div>
-          <div class="skill"><span>&#128206;</span><span>Paperclip AI</span></div>
+          <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/arduino/00f5ff" alt="" width="16" height="16" loading="lazy"><span>Arduino</span></div>
+          <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/python/00f5ff" alt="" width="16" height="16" loading="lazy"><span>Python</span></div>
+          <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/cplusplus/00f5ff" alt="" width="16" height="16" loading="lazy"><span>C / C++</span></div>
+          <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/opencv/00f5ff" alt="" width="16" height="16" loading="lazy"><span>OpenCV</span></div>
+          <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/espressif/00f5ff" alt="" width="16" height="16" loading="lazy"><span>ESP32</span></div>
+          <div class="skill"><span class="skill-icon">&#129302;</span><span>Robotics</span></div>
+          <div class="skill"><span class="skill-icon">&#128225;</span><span>Sensor Fusion</span></div>
+          <div class="skill"><span class="skill-icon">&#129504;</span><span>Machine Learning</span></div>
+          <div class="skill"><span class="skill-icon">&#9986;&#65039;</span><span>Laser Cutting</span></div>
+          <div class="skill"><span class="skill-icon">&#128206;</span><span>Paperclip AI</span></div>
         </div>
       </div>
 
@@ -1643,13 +1647,13 @@
         <p class="tech-section-label">&#11042; TECHNOLOGIES &amp; TOOLS I'VE WORKED WITH &#11042;</p>
         <div class="carousel-wrapper">
           <div class="carousel-track" id="techCarouselTrack" style="--duration:30s">
-            <div class="tech-logo-item" style="--accent:#00f5ff;--accent-rgb:0,245,255"><div class="tech-icon">&#9881;&#65039;</div><span>Arduino</span></div>
-            <div class="tech-logo-item" style="--accent:#f7c948;--accent-rgb:247,201,72"><div class="tech-icon">&#128013;</div><span>Python</span></div>
-            <div class="tech-logo-item" style="--accent:#a855f7;--accent-rgb:168,85,247"><div class="tech-icon">&#128196;</div><span>C / C++</span></div>
-            <div class="tech-logo-item" style="--accent:#22d3ee;--accent-rgb:34,211,238"><div class="tech-icon">&#128246;</div><span>ESP32</span></div>
-            <div class="tech-logo-item" style="--accent:#ec4899;--accent-rgb:236,72,153"><div class="tech-icon">&#127817;</div><span>Raspberry Pi</span></div>
-            <div class="tech-logo-item" style="--accent:#4ade80;--accent-rgb:74,222,128"><div class="tech-icon">&#128065;&#65039;</div><span>OpenCV</span></div>
-            <div class="tech-logo-item" style="--accent:#0ea5e9;--accent-rgb:14,165,233"><div class="tech-icon">&#129302;</div><span>MediaPipe</span></div>
+            <div class="tech-logo-item" style="--accent:#00f5ff;--accent-rgb:0,245,255"><div class="tech-icon"><img src="https://cdn.simpleicons.org/arduino/00f5ff" alt="" width="28" height="28" loading="lazy"></div><span>Arduino</span></div>
+            <div class="tech-logo-item" style="--accent:#f7c948;--accent-rgb:247,201,72"><div class="tech-icon"><img src="https://cdn.simpleicons.org/python/f7c948" alt="" width="28" height="28" loading="lazy"></div><span>Python</span></div>
+            <div class="tech-logo-item" style="--accent:#a855f7;--accent-rgb:168,85,247"><div class="tech-icon"><img src="https://cdn.simpleicons.org/cplusplus/a855f7" alt="" width="28" height="28" loading="lazy"></div><span>C / C++</span></div>
+            <div class="tech-logo-item" style="--accent:#22d3ee;--accent-rgb:34,211,238"><div class="tech-icon"><img src="https://cdn.simpleicons.org/espressif/22d3ee" alt="" width="28" height="28" loading="lazy"></div><span>ESP32</span></div>
+            <div class="tech-logo-item" style="--accent:#ec4899;--accent-rgb:236,72,153"><div class="tech-icon"><img src="https://cdn.simpleicons.org/raspberrypi/ec4899" alt="" width="28" height="28" loading="lazy"></div><span>Raspberry Pi</span></div>
+            <div class="tech-logo-item" style="--accent:#4ade80;--accent-rgb:74,222,128"><div class="tech-icon"><img src="https://cdn.simpleicons.org/opencv/4ade80" alt="" width="28" height="28" loading="lazy"></div><span>OpenCV</span></div>
+            <div class="tech-logo-item" style="--accent:#0ea5e9;--accent-rgb:14,165,233"><div class="tech-icon"><img src="https://cdn.simpleicons.org/mediapipe/0ea5e9" alt="" width="28" height="28" loading="lazy"></div><span>MediaPipe</span></div>
             <div class="tech-logo-item" style="--accent:#f97316;--accent-rgb:249,115,22"><div class="tech-icon">&#128268;</div><span>PCB Design</span></div>
             <div class="tech-logo-item" style="--accent:#7c3aed;--accent-rgb:124,58,237"><div class="tech-icon">&#9986;&#65039;</div><span>Laser Cutting</span></div>
             <div class="tech-logo-item" style="--accent:#00f5ff;--accent-rgb:0,245,255"><div class="tech-icon">&#128225;</div><span>RFID / RC522</span></div>
